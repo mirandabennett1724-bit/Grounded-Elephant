@@ -1,0 +1,35 @@
+/* Design tokens. These are the same values Groundwork uses, so the home page
+   and the reference read as one site. Change them here and both follow. */
+:root{
+  --paper:#F1EEF5; --paper-raised:#FAF9FC; --ink:#231F2C; --ink-soft:#655D74;
+  --pine:#4B2E70; --pine-soft:#ECE3F6; --gold:#5C5569; --gold-soft:#EAE7EF;
+  --wine:#7C3A5C; --wine-soft:#F3E3EC; --line:#DDD4E6;
+  --shadow: 0 1px 2px rgba(35,28,45,0.07), 0 6px 20px rgba(35,28,45,0.06);
+  --radius:10px; --on-accent:#FFFFFF;
+  --font-body:"Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display:"Roboto Slab", Georgia, serif;
+  --font-mono:"IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#1C1922; --paper-raised:#241F2E; --ink:#EAE5F1; --ink-soft:#A89FBA;
+    --pine:#B891E0; --pine-soft:#372A4A; --gold:#AEA6C2; --gold-soft:#332D40;
+    --wine:#E39BB9; --wine-soft:#3B2733; --line:#3D3549;
+    --shadow: 0 1px 2px rgba(0,0,0,0.32), 0 6px 24px rgba(0,0,0,0.38);
+    --on-accent:#1C1922;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#1C1922; --paper-raised:#241F2E; --ink:#EAE5F1; --ink-soft:#A89FBA;
+  --pine:#B891E0; --pine-soft:#372A4A; --gold:#AEA6C2; --gold-soft:#332D40;
+  --wine:#E39BB9; --wine-soft:#3B2733; --line:#3D3549;
+  --shadow: 0 1px 2px rgba(0,0,0,0.32), 0 6px 24px rgba(0,0,0,0.38);
+  --on-accent:#1C1922;
+}
+
+*{box-sizing:border-box;}
+html{color-scheme:light dark;}
+body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--font-body);
+     -webkit-font-smoothing:antialiased; line-height:1.55;}
+a{color:var(--pine);}
+img{max-width:100%; height:auto;}

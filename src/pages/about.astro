@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base
+  title="About The Grounded Elephant"
+  description="Who made Groundwork, why it exists, and how it is kept honest.">
+
+  <section class="about">
+    <p class="kicker">About</p>
+    <h1>Hi. My name is Miranda.</h1>
+    <p class="lede">
+      I am a BSW working on my MSW. Groundwork was born because I was sick of searching all over the internet
+      for everything we need as clinicians. So let's lay the groundwork for your career.
+    </p>
+
+    <h2>It started as my own cheat sheet</h2>
+    <p>
+      Practicum at a domestic violence shelter in the Texas Hill Country, a stack of half-remembered theories,
+      and a resource list that lived in six browser tabs and a photo of a binder page. I built the thing I wished
+      someone had handed me. Then other clinicians wanted it, so here it is.
+    </p>
+
+    <h2>What it is</h2>
+    <p>
+      A working reference, not a textbook. The theories under the work, the modalities used in session, screeners
+      you can score on the spot, group plans you can run this week, printable handouts, Texas licensing and
+      supervision rules, a filterable resource directory, and a shelter list with phone numbers that actually
+      connect. Built for the moment you need the answer, not the semester you learn it.
+    </p>
+
+    <h2>What it isn't</h2>
+    <p>
+      Groundwork does not replace supervision, your agency's policies, your own clinical judgment, or your state
+      licensing board. If something here and your supervisor disagree, your supervisor wins. If something here and
+      the law disagree, the law wins, and I want to hear about it.
+    </p>
+
+    <h2>How it stays honest</h2>
+    <p>
+      Every rule is quoted from the actual rulebook or statute and cited by number. Every fee, hour count, and
+      phone number was verified against the primary source before it went in, and the date of the last check sits
+      in the footer. Anything that only applies in Texas is badged <strong>Texas</strong>, and anything that applies
+      everywhere is badged <strong>National</strong>, so nobody outside Texas gets caught by a rule that isn't theirs.
+    </p>
+
+    <h2>Why an elephant</h2>
+    <p>Elephants remember everything and never leave the herd behind. That felt about right.</p>
+
+    <p class="cta"><a class="btn" href="/groundwork/">Open Groundwork</a></p>
+  </section>
+</Base>
+
+<style>
+  .kicker{font-size:0.72rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--wine); margin:0 0 8px;}
+  .about{max-width:68ch;}
+  .about h1{font-family:var(--font-display); font-size:clamp(1.9rem,4vw,2.6rem); line-height:1.15; margin:0 0 12px;}
+  .about h2{font-family:var(--font-display); font-size:1.25rem; margin:30px 0 8px;}
+  .lede{font-size:1.1rem; color:var(--ink-soft); margin:0 0 6px;}
+  .about p{margin:0 0 12px;}
+  .cta{margin-top:28px;}
+  .btn{display:inline-block; text-decoration:none; font-weight:600; font-size:0.92rem; padding:11px 18px; border-radius:99px;
+       border:1px solid var(--pine); color:var(--on-accent); background:var(--pine); box-shadow:var(--shadow);}
+</style>

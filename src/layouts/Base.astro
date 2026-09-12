@@ -1,0 +1,128 @@
+---
+// The one layout every page shares: head, header, footer, theme. Change the nav
+// here and every page follows.
+import '../styles/tokens.css';
+
+interface Props {
+  title: string;
+  description: string;
+  // wide: no centered column, and the slot renders directly under <body>. Groundwork
+  // needs this because it brings its own <main>, and its print isolation hides every
+  // body-level element except #printArea, so nothing may wrap the page content.
+  wide?: boolean;
+  hideFooter?: boolean;
+}
+const { title, description, wide = false, hideFooter = false } = Astro.props;
+const year = new Date().getFullYear();
+const path = Astro.url.pathname;
+const nav = [
+  { href: '/', label: 'Home' },
+  { href: '/groundwork/', label: 'Groundwork' },
+  { href: '/about/', label: 'About' },
+];
+const isCurrent = (href: string) => path === href || (href !== '/' && path.startsWith(href));
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="The Grounded Elephant" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={Astro.url.href} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" />
+    <script is:inline>
+      // One theme setting for the whole site. Groundwork reads and writes the same key.
+      (function(){ try{ var t = localStorage.getItem("binderTheme"); if(t === "light" || t === "dark"){ document.documentElement.dataset.theme = t; } }catch(e){} })();
+    </script>
+  </head>
+  <body>
+    <header class="site-head">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">The Grounded Elephant</span>
+      </a>
+      <div class="site-head-right">
+        <nav class="site-nav" aria-label="Site">
+          {nav.map(n => (
+            <a href={n.href} aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a>
+          ))}
+        </nav>
+        <div class="site-theme" id="siteTheme" role="group" aria-label="Color theme">
+          <button type="button" data-site-theme="light" title="Light">Light</button>
+          <button type="button" data-site-theme="system" title="Follow device">Auto</button>
+          <button type="button" data-site-theme="dark" title="Dark">Dark</button>
+        </div>
+      </div>
+    </header>
+
+    {wide ? <slot /> : <main class="site-main"><slot /></main>}
+
+    {!hideFooter && (
+      <footer class="site-foot">
+        <p>&copy; {year} The Grounded Elephant &middot; A working reference, not a substitute for supervision, your agency's policies, or your licensing board.</p>
+      </footer>
+    )}
+
+    <script is:inline>
+      (function(){
+        var KEY = "binderTheme";
+        var group = document.getElementById("siteTheme");
+        if(!group) return;
+        function current(){ try{ return localStorage.getItem(KEY) || "system"; }catch(e){ return "system"; } }
+        function paint(choice){
+          group.querySelectorAll("[data-site-theme]").forEach(function(b){
+            b.classList.toggle("active", b.getAttribute("data-site-theme") === choice);
+          });
+        }
+        function apply(choice){
+          // On the Groundwork page, hand the click to Groundwork's own toggle so its
+          // buttons and ours never disagree. Elsewhere, set it directly.
+          var gw = document.querySelector('[data-theme-choice="' + choice + '"]');
+          if(gw){ gw.click(); }
+          else {
+            if(choice === "light" || choice === "dark"){ document.documentElement.dataset.theme = choice; }
+            else { delete document.documentElement.dataset.theme; }
+            try{ if(choice === "system"){ localStorage.removeItem(KEY); } else { localStorage.setItem(KEY, choice); } }catch(e){}
+          }
+          paint(choice);
+        }
+        group.addEventListener("click", function(ev){
+          var b = ev.target.closest("[data-site-theme]");
+          if(b) apply(b.getAttribute("data-site-theme"));
+        });
+        paint(current());
+      })();
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  .site-head{display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap;
+             padding:14px clamp(20px,4vw,56px); border-bottom:1px solid var(--line); background:var(--paper);}
+  .brand{display:inline-flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink);}
+  .brand-mark{width:26px; height:26px; border-radius:7px; background:linear-gradient(135deg, var(--pine), var(--wine));}
+  .brand-name{font-family:var(--font-display); font-weight:700; font-size:1.05rem; letter-spacing:0.01em;}
+  .site-head-right{display:flex; align-items:center; gap:14px; flex-wrap:wrap;}
+  .site-nav{display:flex; gap:6px; flex-wrap:wrap;}
+  .site-nav a{text-decoration:none; color:var(--ink-soft); font-weight:600; font-size:0.9rem; padding:8px 12px; border-radius:99px;}
+  .site-nav a:hover{color:var(--ink); background:var(--paper-raised);}
+  .site-nav a[aria-current="page"]{color:var(--on-accent); background:var(--pine);}
+  .site-theme{display:inline-flex; border:1px solid var(--line); border-radius:99px; padding:2px; background:var(--paper-raised);}
+  .site-theme button{font-family:inherit; font-size:0.72rem; font-weight:600; color:var(--ink-soft); background:none; border:0;
+                     padding:5px 10px; border-radius:99px; cursor:pointer;}
+  .site-theme button.active{background:var(--pine); color:var(--on-accent);}
+  .site-main{max-width:960px; margin:0 auto; padding:40px clamp(20px,4vw,56px) 80px;}
+  .site-foot{max-width:960px; margin:0 auto; padding:22px clamp(20px,4vw,56px) 40px; border-top:1px solid var(--line);
+             font-size:0.8rem; color:var(--ink-soft);}
+  .site-foot p{margin:0;}
+  @media print{ .site-head, .site-foot{display:none !important;} }
+</style>
