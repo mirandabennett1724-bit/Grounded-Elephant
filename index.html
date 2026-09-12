@@ -381,6 +381,17 @@
     .print-doc.print-fullpage .print-sheet{ box-shadow:none; border:none; padding:0.3in 0.2in; }
     .print-doc.print-fullpage .print-sheet-svg{ max-width:100%; width:7.2in; height:auto; }
     .print-doc.print-fullpage .print-sheet-actions{ display:none !important; }
+    /* A printed reference card should read as a document, not as a screen widget.
+       Strip the box, the accent stripe, and the floating tag pill; keep the content. */
+    .print-doc .card{ background:none; border:none; border-radius:0; box-shadow:none; padding:0.2in 0 0; gap:10px; }
+    .print-doc .card .tag, .print-doc .card.wine .tag, .print-doc .card.gold .tag, .print-doc .card.pine .tag{ position:static; display:inline-block; background:none !important; color:var(--ink-soft); box-shadow:none; padding:0; border-radius:0; font-size:0.7rem; letter-spacing:0.09em; }
+    .print-doc .card .region-badge{ background:none; border:none; padding:0; margin:0; }
+    .print-doc .card h3{ font-family:"Roboto Slab", Georgia, serif; font-size:1.45rem; line-height:1.25; margin:2px 0 8px; }
+    .print-doc .card p{ font-size:0.98rem; line-height:1.6; }
+    .print-doc .field{ margin-top:8px; }
+    .print-doc .field-label{ font-size:0.72rem; }
+    .print-doc .card-link{ color:var(--ink); font-weight:500; }
+    .print-doc .card-actions, .print-doc .icon-btn{ display:none !important; }
     /* Leave the fill-in areas blank ink so handwriting stays legible and printers don't lay down a solid block. */
     .wheel-hub, .control-ring-inner{ fill:#ffffff; stroke:var(--line); stroke-width:1.25; }
     .wheel-hub-lbl{ fill:var(--ink); }
