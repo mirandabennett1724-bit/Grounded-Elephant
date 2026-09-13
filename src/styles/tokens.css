@@ -33,3 +33,7 @@ body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--font
      -webkit-font-smoothing:antialiased; line-height:1.55;}
 a{color:var(--pine);}
 img{max-width:100%; height:auto;}
+
+/* Honour the hidden attribute over any author display rule. Groundwork's Start Here
+   doors, and anything else that toggles `hidden`, depend on this. */
+[hidden]:not([hidden="until-found"]){display:none !important;}
