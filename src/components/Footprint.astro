@@ -1,15 +1,14 @@
 ---
-// The elephant footprint on "Lay the Groundwork" buttons: one round pad with four
-// toenails riding its top rim, drawn as a loose pencil line to match the logo.
-// Takes its color from the button text. Small sizes get a heavier line.
+// The elephant footprint on "Lay the Groundwork" buttons: a solid rounded pad with
+// four nail marks on the rim. Filled rather than outlined so it still reads at
+// button size. Takes its color from the button text.
 interface Props { size?: number; }
 const { size = 18 } = Astro.props;
-const w = size <= 20 ? 4.6 : size <= 32 ? 4.0 : 3.5;
 ---
-<svg width={size} height={size} viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width={w} stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block; flex-shrink:0">
-  <path d="M 21 22 C 12 27, 10 43, 19 52 C 28 61, 46 59, 52 48 C 57 38, 52 24, 40 20 C 33 18, 26 19, 20.5 23"/>
-  <path d="M 14.5 25 C 12 20.5, 16.5 16, 20.5 18.5 C 23 20, 22.5 24, 19.5 25"/>
-  <path d="M 24 18.5 C 23.5 13, 30 11, 32.5 15 C 34 17.5, 32 21, 28.5 20"/>
-  <path d="M 35.5 16 C 37 11.5, 43.5 12, 43.5 16.5 C 43.5 19.5, 40 21.5, 37.5 19.5"/>
-  <path d="M 45.5 21 C 49 18, 54 21.5, 52 25.5 C 50.5 28, 47 27.5, 46 25"/>
+<svg width={size} height={size} viewBox="0 0 64 64" fill="currentColor" aria-hidden="true" style="display:block; flex-shrink:0">
+  <path d="M 32 22 C 20 22, 12 31, 12.5 42 C 13 53, 21 59, 32 59 C 43 59, 51.5 53, 51.5 42 C 51.5 31, 44 22, 32 22 Z"/>
+  <path d="M 15 24 C 12.5 20, 16 15, 20 17 C 23.5 19, 22 25, 18 25.5 C 16.5 25.7, 15.5 25, 15 24 Z"/>
+  <path d="M 23.5 16 C 23 11, 29 8.5, 31.5 12.5 C 33.5 15.5, 31 20, 27 19 C 25 18.5, 23.8 17.5, 23.5 16 Z"/>
+  <path d="M 36 13 C 37 8.5, 43.5 9, 43.5 13.5 C 43.5 17, 39.5 19.5, 37 18 C 36 17.3, 35.8 14.5, 36 13 Z"/>
+  <path d="M 46 20 C 49 16.5, 54.5 19.5, 52.5 24 C 51 27.3, 46.5 27.3, 45.5 24 C 45.2 22.7, 45.3 21, 46 20 Z"/>
 </svg>
