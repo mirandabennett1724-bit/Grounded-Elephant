@@ -465,7 +465,7 @@
       <p class="hint-line"><span class="pencil">⎙</span> Use the print buttons on assessment tools and printables to send a single sheet to the printer. Nothing else on the page comes with it.</p>
     </div>
 
-    <div id="app-root"><!-- populated on load from the template + saved data below --></div>
+    <div id="app-root"><!-- populated on load from the template and the data below --></div>
 
     <footer>
       Groundwork &middot; a resource from The Grounded Elephant &middot; This is a living reference, not a substitute for supervision, your agency's policies, or your state's licensing board. Every legal or licensing entry carries a badge: <strong>Texas</strong> means it applies in Texas only, <strong>National</strong> means it applies across the US. Facts, cutoffs, and citations last checked against primary sources: September 2026.
@@ -473,7 +473,7 @@
   </main>
 </div>
 
-<!-- ======= static shell blueprint: cloned into #app-root on load and at save time ======= -->
+<!-- ======= static shell blueprint: cloned into #app-root on load ======= -->
 <template id="shell-template">
 
   <section class="chapter" id="start">
@@ -1564,7 +1564,7 @@ No more than 10 hours of supervision count in any single 30-day period, so you c
     {"id":"tr1","verified":"Aug 2026","tag":"Texas Requirement","title":"What Texas Requires","body":"Texas social work licenses (LBSW, LMSW, LMSW-AP, LCSW) renew every two years, by the last day of your birth month. Thirty continuing education hours are required per renewal period.","detailLabel":"The hours that are specifically mandated","detail":"Of those 30 hours: at least 6 in ethics, and 3 in cultural diversity or competency. Licensees holding supervisory status must complete 6 hours in supervision. Separately, licensees providing direct client care must complete an HHSC-approved human trafficking prevention course each renewal. Administered by the Texas Behavioral Health Executive Council through the State Board of Social Worker Examiners; confirm current rules with the board before you rely on any count.","linkUrl":"https://www.bhec.texas.gov/","linkLabel":"Texas Behavioral Health Executive Council"},
     {"id":"tr2","verified":"Aug 2026","tag":"Free · Satisfies a Texas requirement","title":"HEART — Human Trafficking Prevention","body":"A free online course from Texas HHSC that satisfies the state's human trafficking training requirement for direct-care providers. HEART stands for Hearing, Evaluating, Activating, Resourcing and Training.","detailLabel":"Why start here","detail":"State law requires HHSC to approve at least one course that costs nothing, and this is it. Since the requirement recurs every renewal, this is the easiest hour in the whole cycle to clear. Check the approved-course list to confirm which courses your specific license accepts.","linkUrl":"https://www.hhs.texas.gov/services/family-safety-resources/texas-human-trafficking-resource-center/human-trafficking-prevention-training","linkLabel":"Human trafficking prevention training (Texas HHS)"},
     {"id":"tr3","verified":"Aug 2026","tag":"Free · CE credit","title":"Texas Health Steps Online Provider Education","body":"Free, accredited continuing education built by Texas Medicaid clinical and state program experts, accredited for social workers among other professions.","detailLabel":"Topics & format","detail":"Maternal, infant, child, and adolescent health, plus Medicaid guidelines, medical home, case management in Texas, developmental screening, cultural competence, ethics, and mental health. Self-paced, available on desktop or phone, free account required. Strong fit if your caseload includes children or Medicaid-enrolled families.","linkUrl":"https://www.txhealthsteps.com/","linkLabel":"Texas Health Steps courses"},
-    {"id":"tr4","verified":"Aug 2026","tag":"Free · CE credit","title":"NCTSN Learning Center","body":"The National Child Traumatic Stress Network's online learning platform, the single largest source of free trauma-focused CE I found, advertising 300+ free CE certificates across 200+ webinars.","detailLabel":"Scope & backing","detail":"Assessment, treatment, training, and organizational change in child and adolescent trauma. Funded by SAMHSA and jointly coordinated by UCLA and Duke. Free account required. Courses are aimed at mental health professionals, and many carry CE credit; confirm the credit type matches what your board accepts.","linkUrl":"https://learn.nctsn.org/","linkLabel":"NCTSN Learning Center"},
+    {"id":"tr4","verified":"Aug 2026","tag":"Free · CE credit","title":"NCTSN Learning Center","body":"The National Child Traumatic Stress Network's online learning platform, the single largest source of free trauma-focused CE in this list, advertising 300+ free CE certificates across 200+ webinars.","detailLabel":"Scope & backing","detail":"Assessment, treatment, training, and organizational change in child and adolescent trauma. Funded by SAMHSA and jointly coordinated by UCLA and Duke. Free account required. Courses are aimed at mental health professionals, and many carry CE credit; confirm the credit type matches what your board accepts.","linkUrl":"https://learn.nctsn.org/","linkLabel":"NCTSN Learning Center"},
     {"id":"tr5","verified":"Aug 2026","tag":"Free · certificate only","title":"Suicide Prevention Resource Center Courses","body":"Free self-paced courses on suicide prevention for clinicians and other providers, hosted on the HealtheKnowledge platform.","detailLabel":"Read the fine print","detail":"Courses are free and issue a certificate of completion (pass the posttest at 80% and complete the feedback survey; one certificate per course per year). SPRC states it does not itself award continuing education credit for these courses, though it is an NBCC-approved provider, so treat the certificate as evidence and confirm with your board whether it counts toward your hours.","linkUrl":"https://sprc.org/online-courses/","linkLabel":"SPRC online courses"},
     {"id":"tr6","verified":"Aug 2026","tag":"Free · CE optional","title":"PsychArmor — Military & Veteran Culture","body":"A nonprofit offering 250+ free online courses on working with veterans, service members, and military families. Its cornerstone course is \"15 Things Veterans Want You to Know.\"","detailLabel":"Cost note","detail":"The courses themselves are free to registered users. For selected courses a continuing education certificate is available for purchase after completion, so the learning is free, the CE paperwork may not be. Useful if you see veterans and were not trained in military culture.","linkUrl":"https://psycharmor.org/","linkLabel":"PsychArmor"}
   ],
@@ -1729,10 +1729,10 @@ No more than 10 hours of supervision count in any single 30-day period, so you c
     });
   }
 
-  // On its own domain a tel: link dials and none of this runs. Inside the artifact
-  // viewer the page sits in a sandboxed frame, where external protocol handlers are
+  // On its own domain a tel: link dials and none of this runs. Inside an embedded
+  // the page sits in a sandboxed frame, where external protocol handlers are
   // usually blocked. Opening in a new browsing context is the one standard way a
-  // sandboxed frame may still be allowed to hand the URL to the OS, so we try that
+  // sandboxed frame may still be allowed to hand the URL to the OS, so that is tried
   // first and only copy the number if the dial plainly did not happen.
   function setupTelFallback(){
     var framed;
@@ -1853,7 +1853,7 @@ No more than 10 hours of supervision count in any single 30-day period, so you c
 
 
   // ---------- search filter ----------
-  // Search deliberately spans the whole binder, not just the open chapter: while a
+  // Search spans every section, not just the open one: while a
   // query is active every chapter holding a match is revealed, and clearing the box
   // returns the reader to the chapter they were on.
   var searching = false;
@@ -1943,7 +1943,7 @@ No more than 10 hours of supervision count in any single 30-day period, so you c
 
   // ---------- resource filters ----------
   // Categories and areas are derived from the data, so any new category ("Shelter",
-  // "Digital access") or area ("Harris County") a user adds shows up here on its own.
+  // "Digital access") or area ("Harris County") added to the data shows up here on its own.
   var resCat = "All", resRegion = "All";
 
   function uniqueValues(key){
@@ -2008,7 +2008,7 @@ No more than 10 hours of supervision count in any single 30-day period, so you c
   var printCat = "All";
 
   // Mirrors the active filter into the chapter heading, so the page announces what
-  // you are looking at rather than leaving it only in the chip row.
+  // is on screen rather than leaving it only in the chip row.
   function setChapterCat(elId, parts){
     var el = document.getElementById(elId);
     if(!el) return;
@@ -2140,7 +2140,7 @@ No more than 10 hours of supervision count in any single 30-day period, so you c
     CHAPTERS = Array.prototype.slice.call(document.querySelectorAll("section.chapter")).map(function(s){ return s.id; });
     if(!CHAPTERS.length) return;
 
-    // The previous/next pager was removed at the user's request; the rail is the navigation.
+    // There is no previous/next pager; the rail is the navigation.
 
     document.addEventListener("click", function(ev){
       var toggle = ev.target.closest("#railToggle");
