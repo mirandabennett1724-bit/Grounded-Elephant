@@ -6,22 +6,19 @@ import Base from '../layouts/Base.astro';
 const chapters = [
   { id: 'start',         n: '01', title: 'Start Here',              blurb: 'Two doors: something for my client, or something for me.' },
   { id: 'ethics',        n: '02', title: 'Foundations & Ethics',    blurb: 'NASW core values, and dual relationships in small towns.' },
-  { id: 'theories',      n: '03', title: 'Theories',                blurb: 'Systems, attachment, Bowen, crisis, Cross, and more.' },
-  { id: 'modalities',    n: '04', title: 'Modalities',              blurb: 'CBT, DBT, MI, narrative, family therapy, and what each is for.' },
-  { id: 'groups',        n: '05', title: 'Groups',                  blurb: 'Session structure, group dynamics, and plans you can run this week.' },
-  { id: 'assessment',    n: '06', title: 'Assessment Cheat Sheets', blurb: 'PHQ-9, GAD-7, PCL-5, AUDIT, EPDS, MDQ, scored on the spot.' },
-  { id: 'crisis',        n: '07', title: 'Crisis & Safety',         blurb: 'Suicide risk, emergency detention, reporting, duty to warn.' },
-  { id: 'documentation', n: '08', title: 'Documentation',           blurb: 'SOAP notes, objective language, corrections, consent, discharge.' },
-  { id: 'wellbeing',     n: '09', title: 'Clinician Wellbeing',     blurb: 'Vicarious trauma, compassion fatigue, and what actually helps.' },
-  { id: 'shelters',      n: '10', title: 'Shelter Directory',       blurb: 'Texas shelters with phone numbers that connect and pet policies.' },
-  { id: 'trainings',     n: '11', title: 'Trainings',               blurb: 'Free CE that Texas actually accepts, and what it requires.' },
-  { id: 'licensure',     n: '12', title: 'Licensure',               blurb: 'Every Texas exam and fee, in the order they happen.' },
-  { id: 'supervision',   n: '13', title: 'Supervision & Practicum', blurb: 'Which supervision counts, your protections, what voids hours.' },
-  { id: 'practice',      n: '14', title: 'Private Practice',        blurb: 'Who can open one, the setup checklist, software, credentialing.' },
-  { id: 'resources',     n: '15', title: 'Client Resources',        blurb: 'Food, housing, bills, ID, health care, filtered by area.' },
-  { id: 'printables',    n: '16', title: 'Printables',              blurb: 'Feelings wheel, circle of control, grounding, group worksheets.' },
-  { id: 'glossary',      n: '17', title: 'Glossary',                blurb: 'Field vocabulary, quick definitions.' },
-  { id: 'about',         n: '18', title: 'About',                   blurb: 'Who made this, why, and how it stays honest.' },
+  { id: 'theories',      n: '03', title: 'Theories & Modalities',   blurb: 'Why people behave the way they do, and what you actually do in session.' },
+  { id: 'groups',        n: '04', title: 'Groups',                  blurb: 'Session structure, group dynamics, and plans you can run this week.' },
+  { id: 'assessment',    n: '05', title: 'Assessment Cheat Sheets', blurb: 'PHQ-9, GAD-7, PCL-5, AUDIT, EPDS, MDQ, scored on the spot.' },
+  { id: 'crisis',        n: '06', title: 'Crisis & Safety',         blurb: 'Suicide risk, emergency detention, reporting, duty to warn.' },
+  { id: 'documentation', n: '07', title: 'Documentation',           blurb: 'SOAP notes, objective language, corrections, consent, discharge.' },
+  { id: 'wellbeing',     n: '08', title: 'Clinician Wellbeing',     blurb: 'Vicarious trauma, compassion fatigue, and what actually helps.' },
+  { id: 'trainings',     n: '09', title: 'Trainings',               blurb: 'Free CE that Texas actually accepts, and what it requires.' },
+  { id: 'licensure',     n: '10', title: 'Licensure',               blurb: 'Every Texas exam and fee, in the order they happen.' },
+  { id: 'supervision',   n: '11', title: 'Supervision & Practicum', blurb: 'Which supervision counts, your protections, what voids hours.' },
+  { id: 'practice',      n: '12', title: 'Private Practice',        blurb: 'Who can open one, the setup checklist, software, credentialing.' },
+  { id: 'resources',     n: '13', title: 'Client Resources',        blurb: 'Food, housing, bills, ID, health care, and the Texas shelter directory.' },
+  { id: 'printables',    n: '14', title: 'Printables',              blurb: 'Feelings wheel, circle of control, grounding, group worksheets.' },
+  { id: 'glossary',      n: '15', title: 'Glossary',                blurb: 'Field vocabulary, quick definitions.' },
 ];
 ---
 <Base
@@ -50,7 +47,7 @@ const chapters = [
       that actually connect.
     </p>
     <ul class="feature-list">
-      <li>Eighteen sections, searchable across all of them at once</li>
+      <li>Fifteen sections, searchable across all of them at once</li>
       <li>Every rule badged <strong>Texas</strong> or <strong>National</strong>, so nobody gets caught by a rule that isn't theirs</li>
       <li>Verified against primary sources, with the date of the last check on every page</li>
       <li>Prints clean. Works on a phone. No login, no tracking, no client data ever touches it</li>
@@ -60,7 +57,7 @@ const chapters = [
 
   <section class="chapters" aria-labelledby="chapters-h">
     <p class="kicker">Inside Groundwork</p>
-    <h2 id="chapters-h">Eighteen sections. Jump straight to one.</h2>
+    <h2 id="chapters-h">Fifteen sections. Jump straight to one.</h2>
     <div class="chapter-grid">
       {chapters.map(c => (
         <a class="chapter" href={`/groundwork/#${c.id}`}>
