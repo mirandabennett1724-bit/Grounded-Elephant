@@ -1,0 +1,40 @@
+---
+// Groundwork itself, rendered through the site layout: the section list on the left,
+// the animation and description at the top of the page, and Start Here opening on
+// its two doors. The reference's markup, styles, and script come in verbatim from
+// the fragment, which is regenerated whenever Groundwork changes. The hero is
+// spliced in just before the masthead so it sits inside Groundwork's main column.
+import Hero from './Hero.astro';
+import body from '../content/groundwork-body.html?raw';
+
+const marker = '<div class="masthead">';
+const at = body.indexOf(marker);
+const before = body.slice(0, at);
+const after = body.slice(at);
+---
+<div class="gw">
+  <Fragment set:html={before} />
+  <Hero />
+  <Fragment set:html={after} />
+</div>
+<div id="printArea" aria-hidden="true"></div>
+<script is:inline>
+  // A deep link (/#crisis) makes the browser jump to that section, which scrolls the
+  // site header off the top. Only the linked section is visible anyway, so on wide
+  // screens land with the header in view. Phones keep landing on the content, since
+  // two stacked headers waste the screen. The browser performs the anchor jump after
+  // Groundwork has built the section, which is after "load", so wait a frame or two.
+  window.addEventListener("load", function(){
+    if(!location.hash || window.innerWidth <= 860) return;
+    var tries = 0;
+    (function settle(){
+      window.scrollTo({ top: 0, behavior: "instant" });
+      if(++tries < 4) requestAnimationFrame(settle);
+    })();
+  });
+</script>
+
+<style is:global>
+  /* Groundwork's rail sticks to the viewport top once scrolled past the site header. */
+  .gw .shell{ min-height:calc(100vh - 62px); }
+</style>

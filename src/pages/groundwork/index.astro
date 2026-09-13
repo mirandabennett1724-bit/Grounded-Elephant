@@ -1,40 +1,13 @@
 ---
-// Groundwork, rendered through the site layout so the same header, nav, and theme
-// sit above it. The reference itself is untouched: its markup, styles, and script
-// come in verbatim from the fragment, which is regenerated whenever Groundwork changes.
+// Groundwork also answers at /groundwork/ so links already shared keep working,
+// including deep links such as /groundwork/#crisis.
 import Base from '../../layouts/Base.astro';
-// ?raw inlines the file as a string at build time.
-import body from '../../content/groundwork-body.html?raw';
+import Groundwork from '../../components/Groundwork.astro';
 ---
 <Base
   title="Groundwork"
-  description="A working reference for direct practice: theories, modalities, screeners, group plans, printable handouts, Texas licensing and supervision rules, and a filterable client resource directory."
+  description="Groundwork, a working reference for direct practice: theories, modalities, screeners, group plans, printable handouts, Texas licensing and supervision rules, and a filterable client resource directory."
   wide
   hideFooter>
-  <div class="gw" set:html={body} />
-  <div id="printArea" aria-hidden="true"></div>
-  <script is:inline>
-    // A deep link (/groundwork/#crisis) makes the browser jump to that section, which
-    // scrolls the site header off the top. Only the linked chapter is visible anyway,
-    // so on wide screens land with the header in view. Phones keep Groundwork's own
-    // behavior of landing on the content, since two stacked headers waste the screen.
-    // The browser performs the anchor jump after Groundwork has built the chapter,
-    // which is after "load", so wait a frame or two before overriding it.
-    window.addEventListener("load", function(){
-      if(!location.hash || window.innerWidth <= 860) return;
-      var tries = 0;
-      (function settle(){
-        window.scrollTo({ top: 0, behavior: "instant" });
-        if(++tries < 4) requestAnimationFrame(settle);
-      })();
-    });
-  </script>
+  <Groundwork />
 </Base>
-
-<style is:global>
-  /* The brand now sits in the site header, so the eyebrow that repeated it is redundant. */
-  .gw .masthead .eyebrow{ display:none; }
-  .gw .masthead h1{ margin-top:0; }
-  /* Groundwork's rail sticks to the viewport top once scrolled past the site header. */
-  .gw .shell{ min-height:calc(100vh - 62px); }
-</style>

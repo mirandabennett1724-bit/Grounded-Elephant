@@ -1,0 +1,36 @@
+---
+// The pencil animation, cropped to the drawing. Its paper is blended away: multiply
+// on the light theme, invert and screen on the dark one. Anyone who prefers reduced
+// motion gets the still. It renders inside Groundwork's
+// main column, above the masthead.
+---
+<div class="hero-art" aria-hidden="true">
+  <div class="hero-crop">
+    <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="/brand/lockup-light.png">
+      <source src="/brand/grounded-elephant.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <img class="hero-still only-light" src="/brand/lockup-light.png" alt="" width="1000" height="672" />
+  <img class="hero-still only-dark" src="/brand/lockup-dark.png" alt="" width="1000" height="672" />
+</div>
+
+<style is:global>
+  .gw main .hero-art{width:100%; max-width:440px; margin:6px 0 10px;}
+  /* Measured over every frame of the loop, the ink spans x 21-78% and y 25-69% of the
+     frame; the window shows x 18-81% and y 22-72%, so nothing is cut off. */
+  .hero-crop{position:relative; overflow:hidden; aspect-ratio:63 / 50;}
+  .hero-video{position:absolute; display:block; width:158.73%; height:auto; left:-28.57%; top:-44%; mix-blend-mode:multiply; filter:contrast(1.3) brightness(1.12);}
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .hero-video{filter:contrast(1.3) brightness(1.12) invert(1) hue-rotate(180deg); mix-blend-mode:screen;} }
+  :root[data-theme="dark"] .hero-video{filter:contrast(1.3) brightness(1.12) invert(1) hue-rotate(180deg); mix-blend-mode:screen;}
+  .hero-art .hero-still.only-light, .hero-art .hero-still.only-dark{display:none; width:100%; height:auto;}
+  @media (prefers-reduced-motion: reduce){
+    .hero-art .hero-video{display:none;}
+    .hero-art .hero-still.only-light{display:block;}
+    @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .hero-art .hero-still.only-light{display:none;} :root:not([data-theme="light"]) .hero-art .hero-still.only-dark{display:block;} }
+    :root[data-theme="dark"] .hero-art .hero-still.only-light{display:none;}
+    :root[data-theme="dark"] .hero-art .hero-still.only-dark{display:block;}
+  }
+  /* With the animation carrying the name, the masthead's own title steps back. */
+  .gw .masthead .eyebrow{display:none;}
+  .gw .masthead h1{font-size:1.6rem; margin-top:0;}
+</style>

@@ -17,7 +17,6 @@ const year = new Date().getFullYear();
 const path = Astro.url.pathname;
 const nav = [
   { href: '/', label: 'Home' },
-  { href: '/groundwork/', label: 'Groundwork' },
   { href: '/about/', label: 'About' },
 ];
 const isCurrent = (href: string) => path === href || (href !== '/' && path.startsWith(href));
