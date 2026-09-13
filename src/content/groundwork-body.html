@@ -237,6 +237,15 @@
   .region-badge.tx{color:var(--wine); background:var(--wine-soft); border-color:var(--wine); text-transform:uppercase;}
   .region-badge.us{color:var(--pine); background:var(--pine-soft); border-color:var(--pine); text-transform:uppercase;}
   .region-badge.tx::before{content:"\2605\00a0"; font-size:0.62rem;}
+  .region-badge.ca{color:var(--gold); background:var(--gold-soft); border-color:var(--gold); text-transform:uppercase;}
+  .region-badge.ca::before{content:"\2605\00a0"; font-size:0.62rem;}
+  /* State picker: the national material always shows; one state block shows at a time. */
+  .state-pick{display:flex; align-items:center; gap:12px; flex-wrap:wrap; background:var(--paper-raised); border:1px solid var(--line); border-radius:var(--radius); padding:12px 14px; margin:4px 0 20px;}
+  .state-pick label{font-weight:600; font-size:0.88rem;}
+  .state-pick select{font-family:inherit; font-size:0.9rem; color:var(--ink); background:var(--paper); border:1px solid var(--line); border-radius:8px; padding:7px 10px; min-width:180px;}
+  .state-pick .soft{font-size:0.78rem;}
+  .state-block{display:none;}
+  .state-block.active{display:block;}
   .scope-key{display:flex; flex-direction:column; gap:8px; font-size:0.82rem; color:var(--ink-soft); margin:4px 0 18px;}
   /* Each badge stays on the same line as the start of its own description; the
      description wraps under itself rather than the badge drifting to its own row. */
@@ -468,7 +477,7 @@
       <h1>Groundwork</h1>
       <div class="accent-rule" aria-hidden="true"></div>
       <p class="tagline">Practical, verified tools for social workers and counselors who need the answer now, not the lecture.</p>
-      <p>A working reference for direct practice. The theories under the work, the modalities used in session, screeners you can score on the spot, group plans you can run this week, printable handouts, Texas licensing and supervision rules cited by number, and a filterable resource directory with phone numbers that actually connect.</p>
+      <p>A working reference for direct practice. The theories under the work, the modalities used in session, screeners you can score on the spot, group plans you can run this week, printable handouts, licensing and supervision rules for your state cited by number, and a filterable resource directory with phone numbers that actually connect.</p>
       <div class="searchbar">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="color:var(--ink-soft); flex:none;"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         <input type="text" id="filterInput" placeholder="Search Groundwork&hellip; try &ldquo;anxiety&rdquo; or &ldquo;attachment&rdquo;" autocomplete="off">
@@ -479,7 +488,7 @@
     <div id="app-root"><!-- populated on load from the template and the data below --></div>
 
     <footer>
-      Groundwork &middot; a resource from The Grounded Elephant &middot; This is a living reference, not a substitute for supervision, your agency's policies, or your state's licensing board. Every legal or licensing entry carries a badge: <strong>Texas</strong> means it applies in Texas only, <strong>National</strong> means it applies across the US. Facts, cutoffs, and citations last checked against primary sources: September 2026.
+      Groundwork &middot; a resource from The Grounded Elephant &middot; This is a living reference, not a substitute for supervision, your agency's policies, or your state's licensing board. Every legal or licensing entry carries a badge: a state name such as <strong>Texas</strong> or <strong>California</strong> means it applies in that state only, <strong>National</strong> means it applies across the US. Facts, cutoffs, and citations last checked against primary sources: September 2026.
     </footer>
   </main>
 </div>
@@ -494,7 +503,7 @@
     <p class="chapter-intro">Pick a door. Whatever is going on right now, the part of Groundwork that handles it is one click away, filters already set.</p>
     <div class="scope-key" role="note" aria-label="How jurisdiction is marked">
       <strong>Quick heads-up before you lean on a rule:</strong>
-      <div class="scope-item"><span class="region-badge tx">Texas</span><span>applies in Texas only; other states have their own version and the numbers differ.</span></div>
+      <div class="scope-item"><span class="region-badge tx">Texas</span><span class="region-badge ca">California</span><span>a state badge means the rule applies in that state only; other states have their own version and the numbers differ.</span></div>
       <div class="scope-item"><span class="region-badge us">National</span><span>applies everywhere in the US.</span></div>
     </div>
 
@@ -525,7 +534,7 @@
       <button type="button" class="situation" data-go="documentation"><span class="situation-q">I need to write or fix a note</span><span class="situation-a">SOAP format, objective language, corrections, consent, discharge</span></button>
       <button type="button" class="situation" data-go="ethics"><span class="situation-q">I have an ethics question</span><span class="situation-a">NASW core values, dual relationships in small towns, DV overlap</span></button>
       <button type="button" class="situation" data-go="theories"><span class="situation-q">I need to look up a theory or modality</span><span class="situation-a">Systems, attachment, Bowen, CBT, DBT, MI, family therapy, and more</span></button>
-      <button type="button" class="situation" data-go="licensure"><span class="situation-q">I need information on licensure</span><span class="situation-a">Every Texas exam and fee, in the order they happen</span></button>
+      <button type="button" class="situation" data-go="licensure"><span class="situation-q">I need information on licensure</span><span class="situation-a">Every exam and fee in the order they happen, for your state</span></button>
       <button type="button" class="situation" data-go="supervision"><span class="situation-q">I'm in supervision or working toward my LCSW</span><span class="situation-a">Which supervision counts, your protections, what voids hours</span></button>
       <button type="button" class="situation" data-go="trainings"><span class="situation-q">My CEUs are due</span><span class="situation-a">What Texas requires, and where to get hours free</span></button>
       <button type="button" class="situation" data-go="practice"><span class="situation-q">I'm thinking about private practice</span><span class="situation-a">Who can open one, the setup checklist, software and credentialing</span></button>
@@ -739,11 +748,35 @@
 
   <section class="chapter" id="licensure">
     <div class="chapter-head">
-      <div class="chapter-head-title"><h2>Licensure (Texas)</h2></div>
+      <div class="chapter-head-title"><h2>Licensure</h2></div>
     </div>
-    <p class="chapter-intro">Every exam, every fee, and the order they happen in. Texas social work licensing is administered by the <strong>Texas Behavioral Health Executive Council</strong> (BHEC), which took over the administrative functions of the Texas State Board of Social Worker Examiners in 2020. The board still exists and still sets professional standards, but applications, fees, and enforcement run through the Council. Every figure on this page is quoted from the Council's consolidated social work rulebook dated 25 March 2026, or from ASWB directly.</p>
+    <p class="chapter-intro">Every exam, every fee, and the order they happen in. Social work licensing is set state by state: the license names, the exams beyond ASWB, the supervised hours, the fees, and the renewal rules all differ, and a rule from one state is worth nothing in another. What holds everywhere comes first. Pick your state for the rest.</p>
 
-    <div class="subhead-row"><h3>The order it happens in</h3></div>
+
+    <div class="state-pick">
+      <label for="statePickLicensure">Your state</label>
+      <select id="statePickLicensure" data-state-select>
+        <option value="">Choose a state</option>
+        <option value="TX">Texas</option>
+        <option value="CA">California</option>
+      </select>
+      <span class="soft">What holds in every state comes first. Choose a state for its exams, fees, hours, and renewal rules. More states coming soon.</span>
+    </div>
+
+    <div class="subhead-row"><h3>What holds in every state</h3></div>
+    <div class="grid" data-searchable>
+      <article class="card gold"><span class="tag">Degree</span><span class="region-badge us">National</span><h3>Finish a CSWE-accredited degree</h3><p>Every state board licenses from a degree accredited by the Council on Social Work Education, or a program in candidacy for it. A degree from a non-accredited program will not qualify you at any license level anywhere, and there is no workaround later.</p><a class="card-link" href="https://www.cswe.org/accreditation/policies-process/2022epas/" target="_blank" rel="noopener">CSWE accreditation standards &#8599;</a></article>
+      <article class="card gold"><span class="tag">Exam</span><span class="region-badge us">National</span><h3>The ASWB exams</h3><p>The Association of Social Work Boards writes and administers the licensing exams every state uses: Bachelors, Masters, Advanced Generalist, and Clinical. Your state decides which one you take and when you may sit for it. Fees are paid to ASWB: <strong>$230</strong> for Bachelors or Masters, <strong>$260</strong> for Advanced Generalist or Clinical, each attempt.</p><div class="field"><span class="field-label">If you fail</span><p class="soft">ASWB requires a 90-day wait between attempts, waivable only if you were within 10 correct answers of passing and your board allows it. Whether there is a cap on attempts is a state rule, not an ASWB one.</p></div><a class="card-link" href="https://www.aswb.org/exam/exam-scoring/if-you-fail-the-exam/" target="_blank" rel="noopener">ASWB retake policy &#8599;</a></article>
+      <article class="card gold"><span class="tag">Boards</span><span class="region-badge us">National</span><h3>Fifty boards, not one</h3><p>There is no national social work license. Each state, plus the District of Columbia and the territories, has its own board, its own license titles, and its own rulebook. Texas licenses at three levels; California licenses at one. The same letters can mean different things across a state line, and continuing education accepted in one state may not be accepted in the next.</p></article>
+      <article class="card gold"><span class="tag">Portability</span><span class="region-badge us">National</span><h3>The Social Work Licensure Compact, not yet issuing licenses</h3><p>Thirty-one states have enacted the Compact as of September 2026, and it has reached activation, but multistate licenses are <strong>not yet being issued</strong>; the Compact itself puts implementation at 12 to 24 months from activation. Neither Texas nor California is a member as of that date. Until a multistate license exists, practicing in another state means holding that state's license.</p><a class="card-link" href="https://swcompact.org/compact-jurisdictions/" target="_blank" rel="noopener">Compact member states &#8599;</a></article>
+    </div>
+
+    <div class="note" data-state-empty><span class="mark">STATE</span><p><strong>Pick your state above.</strong> The license names, the exams beyond ASWB, the supervised hours, every fee, and the renewal rules are set by each state's board. Nothing below this line appears until a state is chosen.</p></div>
+
+    <div class="state-block" data-state="TX">
+    <div class="note"><span class="mark">TX</span><p><strong>Where the Texas figures come from.</strong> Every Texas figure below is quoted from the Behavioral Health Executive Council's consolidated social work rulebook dated 25 March 2026, or from ASWB directly.</p></div>
+
+<div class="subhead-row"><h3>The order it happens in</h3></div>
     <div class="grid" data-searchable>
       <article class="card gold"><span class="tag">Step 1</span><span class="region-badge us">National</span><h3>Finish an accredited degree</h3><p>Your degree has to come from a program accredited by the Council on Social Work Education, or one in candidacy for accreditation. This is not a formality you can work around later; a degree from a non-accredited program will not qualify you at any license level.</p></article>
       <article class="card gold"><span class="tag">Step 2</span><span class="region-badge tx">Texas</span><h3>Apply to ASWB for exam preapproval</h3><p>This is the step most guides leave out, and it comes before you register for the exam. Texas requires you to be preapproved through ASWB before you can sit for it.</p><div class="field"><span class="field-label">Cost</span><p class="soft">$60, nonrefundable, paid to ASWB.</p></div><a class="card-link" href="https://www.aswb.org/texas/" target="_blank" rel="noopener">ASWB Texas exam preapproval &#8599;</a></article>
@@ -834,18 +867,107 @@ No more than 10 hours of supervision count in any single 30-day period, so you c
     <div class="note"><span class="mark">NOTE</span><p>All Council fees are nonrefundable and nontransferable. The rulebook goes further and warns that attempting a chargeback on fees paid may itself result in a complaint being opened against you. If a license has been expired for a year or more you cannot renew it at all; the only route back is reinstatement.</p></div>
 
     <div class="note"><span class="mark">SRC</span><p>Fees, hour counts, and rule numbers verified against the <a href="https://bhec.texas.gov/wp-content/uploads/2026/04/SW-Rulebook-2026-March.pdf" target="_blank" rel="noopener">BHEC consolidated social work rulebook</a> dated 25 March 2026, and exam fees against <a href="https://www.aswb.org/texas/" target="_blank" rel="noopener">ASWB</a>. Fees change. Confirm current amounts with the <a href="https://bhec.texas.gov/texas-state-board-of-social-worker-examiners/applying-for-a-social-work-license/" target="_blank" rel="noopener">Council</a> before you send money.</p></div>
+    </div>
+
+    <div class="state-block" data-state="CA">
+
+    <div class="note"><span class="mark">CA</span><p><strong>Where the California figures come from.</strong> The Board of Behavioral Sciences' <em>Statutes and Regulations</em> (January 2026 edition), its <em>Handbook for Future LCSWs</em> (May 2024), the ASW and LCSW application packets (revised August and June 2026), and the fee amendment to 16 CCR &sect;&sect;1816 to 1816.4 approved by the Office of Administrative Law on 4 February 2026. ASWB figures come from ASWB directly. Section numbers are from the Business and Professions Code (BPC) unless marked 16 CCR.</p></div>
+
+    <div class="callout"><span class="mark">CA</span><p><strong>Fees are half price until mid-2030.</strong> Because the Board's reserve exceeded the legal limit, its fees for registration, exams, application, issuance, and renewal are cut by 50 percent for the period <strong>1 July 2026 through 30 June 2030</strong> (16 CCR &sect;&sect;1816 to 1816.4, OAL matter 2025-1222-02). Every Board fee below is the reduced amount, with the standard amount in parentheses. ASWB and Live Scan fees are not Board fees and are not reduced.</p></div>
+
+    <div class="subhead-row"><h3>The order it happens in</h3></div>
+    <div class="grid" data-searchable>
+      <article class="card gold"><span class="tag">Step 1</span><span class="region-badge us">National</span><h3>Finish a CSWE-accredited MSW</h3><p>California licenses social work at one level only, the clinical level, and the only way in is a master's degree from a school accredited by the Council on Social Work Education (BPC &sect;4996.2(b)). There is no bachelor's license and no non-clinical master's license to fall back on.</p></article>
+      <article class="card gold"><span class="tag">Step 2</span><span class="region-badge ca">California</span><h3>Register as an ASW, ideally within 90 days of graduating</h3><p>You cannot count a single supervised hour until you are registered as an <strong>Associate Clinical Social Worker</strong>, with one exception. Under the 90-Day Rule (BPC &sect;4996.23(b)), hours between graduation and the issue date of your ASW number count if the Board receives your application <strong>within 90 days</strong> of the degree date on your transcript, your employer had you Live Scan fingerprinted before you started gaining hours, and the setting is not a private practice or professional corporation. Keep the completed Live Scan form; it goes in with your licensure application years later.</p><div class="field"><span class="field-label">Cost</span><p class="soft">$75 application ($150 standard), plus Live Scan: $32 DOJ, $17 FBI, and the operator's own service charge.</p></div><div class="field"><span class="field-label">Out-of-state degree</span><p class="soft">Complete a 12-hour California law and ethics course before you can register (BPC &sect;4996.18(b)(3)).</p></div><a class="card-link" href="https://www.bbs.ca.gov/pdf/forms/lcs/aswapp.pdf" target="_blank" rel="noopener">ASW registration packet (BBS) &#8599;</a></article>
+      <article class="card gold"><span class="tag">Step 3</span><span class="region-badge ca">California</span><h3>Take the California Law and Ethics Exam in your first year</h3><p>A Board-administered exam, separate from ASWB. You must take it before your registration's first expiration date and at least once in every renewal cycle until you pass (16 CCR &sect;1877.3(b)); the Board will not renew an ASW registration that has not participated (BPC &sect;4996.28(a)(4)). The Board's own advice is to schedule it as soon as your number is issued, because a lapsed registration means hours that do not count.</p><div class="field"><span class="field-label">If you fail</span><p class="soft">Retakes carry a 90-day wait. Fail during a renewal cycle and you must complete a <strong>12-hour California law and ethics course</strong> before you can retake in the next cycle (16 CCR &sect;1877.2(a)(1)).</p></div><div class="field"><span class="field-label">Cost</span><p class="soft">$75 per attempt ($150 standard), paid to the Board.</p></div></article>
+      <article class="card gold"><span class="tag">Step 4</span><span class="region-badge ca">California</span><h3>Earn 3,000 supervised hours over at least 104 weeks</h3><p>All post-master's, all within the <strong>six years</strong> before the Board receives your licensure application (BPC &sect;4996.23(d)(4)). At least 1,700 hours under an LCSW, at least 2,000 clinical, at least 750 of those face-to-face psychotherapy, no more than 1,000 nonclinical, no more than 40 hours in any seven days. Every hour is tied to a weekly supervision requirement. The full rules are in <strong>Supervision &amp; Practicum</strong>.</p></article>
+      <article class="card gold"><span class="tag">Step 5</span><span class="region-badge ca">California</span><h3>Apply for licensure</h3><p>Submit the Application for Licensure with your Experience Verification forms (original signatures, one per supervisor and employer), your signed Supervision Agreements, W-2s for every year of experience claimed, proof of the required coursework, and your passed Law and Ethics Exam. The Board evaluates the application and tells you what is missing; you have one year to answer a deficiency letter before the application is abandoned (16 CCR &sect;1806(a)).</p><div class="field"><span class="field-label">Cost</span><p class="soft">$125 ($250 standard), paid to the Board.</p></div><a class="card-link" href="https://www.bbs.ca.gov/pdf/forms/lcs/lcsapp.pdf" target="_blank" rel="noopener">LCSW application packet (BBS) &#8599;</a></article>
+      <article class="card gold"><span class="tag">Step 6</span><span class="region-badge us">National</span><h3>Pass the ASWB Clinical exam</h3><p>You register with ASWB only after the Board approves your application, and you must take the exam <strong>within one year</strong> of that approval or the application closes and you start over, losing any hours older than six years. Fail, and you may retake after ASWB's 90-day wait without a new application, but only within one year of the failure notice (BPC &sect;4996.4).</p><div class="field"><span class="field-label">Cost</span><p class="soft">$260, paid to ASWB, each attempt.</p></div></article>
+      <article class="card gold"><span class="tag">Step 7</span><span class="region-badge ca">California</span><h3>Request your license, then keep it</h3><p>After both exams are passed you request initial license issuance online through BreEZe and pay the issuance fee, within one year of passing the clinical exam. You may not practice independently until the license is actually issued. Renewal is every two years with 36 hours of continuing education; see <strong>Keeping the license</strong> below.</p><div class="field"><span class="field-label">Cost</span><p class="soft">$100 initial issuance ($200 standard). Renewal $100 ($200 standard) plus a fixed $20 Mental Health Practitioner Education Fund fee (BPC &sect;4996.65).</p></div></article>
+    </div>
+
+    <div class="subhead-row"><h3>Before you apply</h3></div>
+    <div class="grid wide" data-searchable>
+      <article class="card wine"><span class="tag">Coursework</span><span class="region-badge ca">California</span><h3>Eight courses the Board checks before it lets you sit the clinical exam</h3><p>Most California MSW programs build these in; some do not, and out-of-state programs usually do not. Keep every syllabus. Hours are contact hours, and each one may be satisfied inside the degree or as a separate course from an acceptable provider.</p><div class="field"><span class="field-label">Everyone</span><p class="soft">Child abuse assessment and reporting, <strong>7 hours</strong> (BPC &sect;4996.2(h), 16 CCR &sect;1807.2). Human sexuality, <strong>10 hours</strong> (&sect;4996.2(g)). Alcoholism and chemical substance dependency, <strong>15 hours</strong> (&sect;4996.2(e), 16 CCR &sect;1807.3). Spousal or partner abuse assessment, detection, and intervention, <strong>15 hours</strong> (&sect;4996.2(f)). Aging and long-term care including elder and dependent adult abuse, <strong>10 hours</strong> (&sect;4996.25). Suicide risk assessment and intervention, <strong>6 hours</strong> of coursework or supervised applied experience (&sect;4996.27). Telehealth including its law and ethics, <strong>3 hours</strong> (&sect;4996.27.1).</p></div><div class="field"><span class="field-label">Out-of-state degrees only</span><p class="soft">Add 12 hours of California law and professional ethics and one semester unit or 15 hours on California cultures and the social and psychological implications of socioeconomic position (BPC &sect;4996.17.2).</p></div><a class="card-link" href="https://www.bbs.ca.gov/pdf/publications/lcsw_handbook.pdf" target="_blank" rel="noopener">Handbook for Future LCSWs (BBS) &#8599;</a></article>
+      <article class="card wine"><span class="tag">Criminal History</span><span class="region-badge ca">California</span><h3>Fingerprints at registration, and one absolute bar</h3><p>Live Scan fingerprinting runs a DOJ and FBI check at ASW registration; a conviction is reviewed under BPC &sect;480, which turns on whether the offense is substantially related to the profession. One rule has no discretion in it: the Board shall not register or license anyone convicted of a crime involving sexual abuse of children, or anyone required to register under Penal Code &sect;290 (BPC &sect;4996.2(d)).</p><div class="field"><span class="field-label">How it is judged</span><p class="soft">The Board applies the substantial-relationship criteria in 16 CCR &sect;1812 and considers evidence of rehabilitation. Disclose everything; an undisclosed conviction is its own problem.</p></div></article>
+      <article class="card"><span class="tag">Already Licensed</span><span class="region-badge ca">California</span><h3>Coming from another state: two doors</h3><p><strong>By credential</strong> (BPC &sect;4996.17.1): if your out-of-state clinical license has been current, active, and unrestricted for at least two years, you skip the ASWB Clinical exam. You still need the California Law and Ethics Exam, 12 hours of California law and ethics, 15 hours on California cultures, 7 hours child abuse, 6 hours suicide risk, and fingerprints.</p><div class="field"><span class="field-label">By education and experience</span><p class="soft">(&sect;4996.17.2) Out-of-state supervised hours count if substantially equivalent to California's. If you come up short of 3,000, each month you held an active independent clinical license elsewhere is credited at <strong>100 hours per month, up to 1,200 hours</strong>.</p></div><a class="card-link" href="https://www.bbs.ca.gov/pdf/lcsw_guide.pdf" target="_blank" rel="noopener">Guide to out-of-state requirements (BBS) &#8599;</a></article>
+      <article class="card"><span class="tag">Registration</span><span class="region-badge ca">California</span><h3>The ASW number has a six-year life</h3><p>An ASW registration expires one year from the last day of the month it was issued, renews yearly, and can be renewed a maximum of <strong>five times</strong>. Nothing extends it past six years (BPC &sect;4996.28(c)). If you are not licensed by then you may apply for a <strong>subsequent</strong> registration number, but only if you have passed the Law and Ethics Exam, and a subsequent number cannot be used in a private practice or professional corporation at all.</p></article>
+      <article class="card"><span class="tag">Title</span><span class="region-badge ca">California</span><h3>Tell every client you are unlicensed, before you start</h3><p>Not a courtesy. BPC &sect;4996.18(g) requires every ASW and applicant to inform each client, before performing any professional service, that they are unlicensed and under the supervision of a licensed professional.</p></article>
+    </div>
+
+    <div class="subhead-row"><h3>What it costs</h3></div>
+    <div class="table-wrap" data-searchable>
+      <table>
+        <thead><tr><th>Item</th><th>Fee</th><th>Paid to</th></tr></thead>
+        <tbody>
+          <tr><td>ASW registration application</td><td class="mono">$75 <span class="soft">($150 standard)</span></td><td>BBS</td></tr>
+          <tr><td>Live Scan fingerprinting, DOJ and FBI processing</td><td class="mono">$32 + $17 + operator fee</td><td>Live Scan operator</td></tr>
+          <tr><td>Fingerprint hard cards, out-of-state applicants only</td><td class="mono">$49</td><td>BBS</td></tr>
+          <tr><td>California Law and Ethics Exam, each attempt</td><td class="mono">$75 <span class="soft">($150 standard)</span></td><td>BBS</td></tr>
+          <tr><td>12-hour law and ethics course after a failed exam cycle</td><td class="mono">provider's price</td><td>CE provider</td></tr>
+          <tr><td>ASW annual renewal</td><td class="mono">$75 <span class="soft">($150 standard)</span></td><td>BBS</td></tr>
+          <tr><td>LCSW application for licensure</td><td class="mono">$125 <span class="soft">($250 standard)</span></td><td>BBS</td></tr>
+          <tr><td>ASWB Clinical exam, each attempt</td><td class="mono">$260</td><td>ASWB</td></tr>
+          <tr><td>Initial LCSW license issuance</td><td class="mono">$100 <span class="soft">($200 standard)</span></td><td>BBS</td></tr>
+          <tr><td>LCSW renewal, every 2 years</td><td class="mono">$100 <span class="soft">($200 standard)</span> + $20 education fund</td><td>BBS</td></tr>
+          <tr><td>Renewal delinquency fee</td><td class="mono">half the renewal fee</td><td>BBS</td></tr>
+          <tr><td>Inactive status renewal, every 2 years</td><td class="mono">half the renewal fee</td><td>BBS</td></tr>
+          <tr><td>Retired license</td><td class="mono">$40</td><td>BBS</td></tr>
+          <tr><td>Replacement license or registration</td><td class="mono">$20</td><td>BBS</td></tr>
+          <tr><td>Certificate or letter of good standing</td><td class="mono">$25</td><td>BBS</td></tr>
+          <tr><td>Exam rescoring</td><td class="mono">$20</td><td>BBS</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout"><span class="mark">$</span><p><strong>What it adds up to.</strong> From ASW registration to a license in hand, at today's reduced rates: $75 registration, $75 Law and Ethics Exam, $125 application, $260 ASWB Clinical exam, and $100 issuance, so <strong>$635</strong> if you pass everything first time, plus $75 for each yearly ASW renewal along the way (two years of hours means at least one) and the Live Scan charges. At standard rates the same path is $985. Renewal thereafter is $120 every two years plus continuing education.</p></div>
+
+    <div class="subhead-row"><h3>Keeping the license</h3></div>
+    <div class="grid wide" data-searchable>
+      <article class="card pine"><span class="tag">Renewal</span><span class="region-badge ca">California</span><h3>36 hours of CE every two years, 6 of them law and ethics</h3><p>BPC &sect;4996.22(a)(1) sets the 36 hours; 16 CCR &sect;1887.3(c) requires six of them to be in law and ethics, and a law and ethics course a supervisor takes for supervisor training does not satisfy those six. Keep completion records for at least two years; the Board audits.</p><div class="field"><span class="field-label">Credit rules</span><p class="soft">Teaching an approved course earns the same hours as taking it, capped at 18 per cycle. A course cannot be claimed twice in one cycle, and a course taken as a probation condition earns nothing (16 CCR &sect;1887.3).</p></div></article>
+      <article class="card pine"><span class="tag">Renewal</span><span class="region-badge ca">California</span><h3>One-time requirements that ride on your first renewal</h3><p>Suicide risk assessment and intervention, 6 hours, by the first renewal after 1 January 2021 (BPC &sect;4996.27(b)). Telehealth including law and ethics, 3 hours, by the first renewal after 1 July 2023 (&sect;4996.27.1(b)). HIV and AIDS assessment and treatment, 7 hours, one time for every licensee (16 CCR &sect;1887.3(b)). If you completed these for licensure you certify it; you do not repeat them.</p></article>
+      <article class="card pine"><span class="tag">Renewal</span><span class="region-badge ca">California</span><h3>No grace period, and a three-year cliff</h3><p>Renewals postmarked after the expiration date pay a delinquency fee of half the renewal fee (BPC &sect;4996.3(a)(8)). An expired license can be renewed for up to three years by paying that. After three years it cannot be renewed, restored, or reinstated; the only route is a new application and both exams again (&sect;4996.6(d)).</p></article>
+      <article class="card pine"><span class="tag">Status</span><span class="region-badge ca">California</span><h3>Inactive costs half and needs no CE</h3><p>Under BPC &sect;4997 an inactive licensee pays half the renewal fee and is exempt from continuing education, but may not practice. Coming back mid-cycle means paying the other half, plus 18 hours of CE if the license expires within a year, or 36 hours if later.</p></article>
+      <article class="card pine"><span class="tag">Supervisors</span><span class="region-badge ca">California</span><h3>Supervising adds six hours to your cycle</h3><p>Anyone supervising associates must complete at least six hours of professional development in supervision during each renewal period they supervise (16 CCR &sect;1871(c)). Those hours count toward the 36 but not toward the six law and ethics hours.</p></article>
+      <article class="card pine"><span class="tag">ASW</span><span class="region-badge ca">California</span><h3>Registrants renew every year with their own three hours</h3><p>To renew, an ASW pays the yearly fee, certifies three hours of continuing education in California law and ethics for that year (BPC &sect;4992.09(e)), and has taken the Law and Ethics Exam in the cycle if not yet passed. The three hours are required every year even after the exam is passed.</p></article>
+    </div>
+
+    <div class="note"><span class="mark">CA</span><p><strong>The two bodies you will deal with.</strong> The <strong>Board of Behavioral Sciences</strong> (BBS) registers ASWs, administers the Law and Ethics Exam, approves licensure applications, and issues and renews the LCSW. <strong>ASWB</strong> runs the Clinical exam. License and registration numbers post to the state's BreEZe system before the paper certificate arrives.</p><p><a href="https://www.bbs.ca.gov/applicants/lcsw.html" target="_blank" rel="noopener">BBS: Licensed Clinical Social Worker applicant page &#8599;</a> &middot; <a href="https://www.bbs.ca.gov/pdf/publications/lawsregs.pdf" target="_blank" rel="noopener">BBS Statutes and Regulations, January 2026 (PDF) &#8599;</a></p></div>
+    </div>
+
   </section>
 
   <section class="chapter" id="supervision">
     <div class="chapter-head">
       <div class="chapter-head-title"><h2>Supervision &amp; Practicum</h2></div>
     </div>
-    <p class="chapter-intro">People use the word &ldquo;supervision&rdquo; for at least five different arrangements with different rules, different qualifying supervisors, and very different consequences if you get them wrong. This section separates them, covers what students are and are not allowed to do in field placement, and sets out the protections a supervisee has that most never find out about. The Texas supervision rules were substantially rewritten effective <strong>18 March 2026</strong>; everything here reflects that version.</p>
+    <p class="chapter-intro">People use the word &ldquo;supervision&rdquo; for several different arrangements with different rules, different qualifying supervisors, and very different consequences if you get them wrong. What students may do in field placement, how many hours a clinical license takes, who may sign for them, and what can void them are all set by each state. The one thing every program shares comes first. Pick your state for the rest.</p>
 
-    <div class="subhead-row"><h3>Practicum and internship</h3></div>
+
+    <div class="state-pick">
+      <label for="statePickSupervision">Your state</label>
+      <select id="statePickSupervision" data-state-select>
+        <option value="">Choose a state</option>
+        <option value="TX">Texas</option>
+        <option value="CA">California</option>
+      </select>
+      <span class="soft">What holds in every state comes first. Choose a state for its exams, fees, hours, and renewal rules. More states coming soon.</span>
+    </div>
+
+    <div class="subhead-row"><h3>What holds in every state</h3></div>
+    <div class="grid" data-searchable>
+      <article class="card"><span class="tag">Students</span><span class="region-badge us">National</span><h3>Field hours your program must provide</h3><p>Under CSWE's 2022 accreditation standards, programs must provide a minimum of <strong>400 hours</strong> of field education at the baccalaureate level and <strong>900 hours</strong> at the master's level.</p><div class="field"><span class="field-label">Worth being clear about</span><p class="soft">These are accreditation minimums your program has to meet, not licensure hours. The supervised experience for a clinical license is counted after the degree, under your state's rules, and each state decides when that clock starts.</p></div><a class="card-link" href="https://www.cswe.org/accreditation/policies-process/2022epas/" target="_blank" rel="noopener">CSWE 2022 EPAS &#8599;</a></article>
+      <article class="card"><span class="tag">Students</span><span class="region-badge us">National</span><h3>Your placement is not your license</h3><p>Field education is governed by your program and CSWE. Licensing boards regulate licensees and, in most states, people registered on the way to a license; students in an accredited program are covered by their program's arrangements and their state's exemption for supervised students. What you may call yourself, what tasks you may perform, and whether any of it counts later are state questions, answered below once you pick a state.</p></article>
+    </div>
+
+    <div class="note" data-state-empty><span class="mark">STATE</span><p><strong>Pick your state above.</strong> The license names, the exams beyond ASWB, the supervised hours, every fee, and the renewal rules are set by each state's board. Nothing below this line appears until a state is chosen.</p></div>
+
+    <div class="state-block" data-state="TX">
+    <div class="note"><span class="mark">TX</span><p><strong>Where the Texas figures come from.</strong> The Texas supervision rules were substantially rewritten effective 18 March 2026; everything below reflects that version of the Behavioral Health Executive Council's rulebook.</p></div>
+
+<div class="subhead-row"><h3>Practicum and internship</h3></div>
     <div class="grid wide" data-searchable>
       <article class="card"><span class="tag">Students</span><span class="region-badge tx">Texas</span><h3>Why you can practice without a license</h3><p>Not a loophole and not an oversight. Occupations Code <strong>&sect;505.003(a)(3)</strong> puts activity conducted by a social work student, intern, or trainee outside the Act entirely, so long as it is <strong>in connection with an institution of higher education accredited by CSWE</strong>.</p><div class="field"><span class="field-label">The condition that matters</span><p class="soft">The exemption attaches to the connection with your accredited program, not to you personally. Work you pick up outside the placement your program arranged is not covered by it, even if the tasks look identical.</p></div></article>
-      <article class="card"><span class="tag">Students</span><span class="region-badge us">National</span><h3>Field hours your program must provide</h3><p>Under CSWE's 2022 accreditation standards, programs must provide a minimum of <strong>400 hours</strong> of field education at the baccalaureate level and <strong>900 hours</strong> at the master's level.</p><div class="field"><span class="field-label">Worth being clear about</span><p class="soft">These are the accreditation minimums your program has to meet, not licensure hours. Practicum hours do not count toward the 3,000 supervised hours for LCSW or independent practice recognition. That clock does not start until you are licensed and under a supervision plan.</p></div></article>
       <article class="card"><span class="tag">Title</span><span class="region-badge tx">Texas</span><h3>What you may and may not call yourself</h3><p>The practice exemption is not a title exemption. Protected titles under the Act belong to licensees, and a student using one is a separate problem from whether the underlying activity was permitted.</p><div class="field"><span class="field-label">Safe framing</span><p class="soft">Identify yourself by your training status, for example social work intern, practicum student, or BSW student. Let the agency's own job titles do the rest, and do not let a business card or an email signature imply a license you do not hold.</p></div></article>
       <article class="card"><span class="tag">Agency Staff</span><span class="region-badge tx">Texas</span><h3>The exemption that covers unlicensed shelter staff</h3><p>Useful for understanding your coworkers. Under <strong>&sect;505.003(a)(2)</strong>, a volunteer or staff member is outside the Act as long as they do not represent the service as social work, represent themselves as a social worker, or use a title implying social work licensure.</p><div class="field"><span class="field-label">Why it matters in DV work</span><p class="soft">Advocates, case aides, and hotline staff often do work that overlaps with social work tasks. They are lawfully doing it. The line is title and representation, not the substance of the help.</p></div></article>
       <article class="card"><span class="tag">Supervisors</span><span class="region-badge tx">Texas</span><h3>Taking students earns you CE</h3><p>If you serve as a field or practicum instructor, you may claim one hour of continuing education per hour of college credit awarded to the student, capped at <strong>10 hours per renewal period</strong>. Those hours cannot count toward the ethics or distinct population requirements.</p></article>
@@ -897,6 +1019,68 @@ No more than 10 hours of supervision count in any single 30-day period, so you c
     </div>
 
     <div class="note"><span class="mark">SRC</span><p>Rules 781.402 through 781.407 and 781.411 as amended effective 18 March 2026, from the <a href="https://bhec.texas.gov/wp-content/uploads/2026/04/SW-Rulebook-2026-March.pdf" target="_blank" rel="noopener">BHEC consolidated social work rulebook</a>. Student and staff exemptions from Occupations Code &sect;505.003. Field hour minimums from the <a href="https://www.cswe.org/accreditation/policies-process/2022epas/" target="_blank" rel="noopener">CSWE 2022 Educational Policy and Accreditation Standards</a>. Confirm current forms and requirements with the Council before relying on any of it.</p></div>
+    </div>
+
+    <div class="state-block" data-state="CA">
+
+    <div class="note"><span class="mark">CA</span><p><strong>Where the California figures come from.</strong> The Board of Behavioral Sciences' <em>Statutes and Regulations</em> (January 2026 edition) and its <em>Handbook for Future LCSWs</em> (May 2024). Section numbers are from the Business and Professions Code (BPC) unless marked 16 CCR. California has one supervised pathway, the ASW toward the LCSW, so there is no non-clinical track and no supervisor credential to apply for; supervisors qualify by meeting the rules below.</p></div>
+
+    <div class="subhead-row"><h3>Practicum and internship</h3></div>
+    <div class="grid wide" data-searchable>
+      <article class="card"><span class="tag">Students</span><span class="region-badge ca">California</span><h3>The Board does not regulate students</h3><p>The Board of Behavioral Sciences regulates LCSWs and registered ASWs. In its own words, it does not regulate students who are gaining a degree in social work. Your field placement is governed by your program and CSWE, not by the Board.</p><div class="field"><span class="field-label">What that means for your hours</span><p class="soft">Nothing from the practicum counts toward the LCSW. Every one of the 3,000 hours must be post-master's (BPC &sect;4996.23(a)); the only pre-registration hours that count are post-degree hours under the 90-Day Rule. Marriage and family therapy trainees may count up to 1,300 pre-degree hours in California (BPC &sect;4980.43); ASWs may count none.</p></div></article>
+      <article class="card"><span class="tag">Title</span><span class="region-badge ca">California</span><h3>What you may call yourself, and what you must say</h3><p>Once registered you are an Associate Clinical Social Worker, ASW. Before performing any professional service you must tell each client that you are unlicensed and under the supervision of a licensed professional (BPC &sect;4996.18(g)). That disclosure is a legal duty on you, not on your employer.</p></article>
+      <article class="card"><span class="tag">90-Day Rule</span><span class="region-badge ca">California</span><h3>The gap between graduating and getting your number</h3><p>Apply for ASW registration within 90 days of your degree date, get Live Scan fingerprinted by the employer before you start, stay out of private practice settings, and the hours you gain while the Board processes your application count once the registration is granted (BPC &sect;4996.23(b)). Miss the 90 days and those hours are gone.</p></article>
+    </div>
+
+    <div class="subhead-row"><h3>The numbers</h3></div>
+    <div class="callout"><span class="mark">CA</span><p><strong>3,000 hours, at least 104 weeks, inside six years.</strong> All of BPC &sect;4996.23 turns on those three limits. The hours must be gained within the six years immediately before the Board receives your licensure application, and no more than 40 hours may be credited in any seven consecutive days.</p></div>
+    <div class="grid" data-searchable>
+      <article class="card gold"><span class="tag">Minimum</span><span class="region-badge ca">California</span><h3>1,700 hours under an LCSW</h3><p>At least 1,700 of the 3,000 must be supervised by a licensed clinical social worker (BPC &sect;4996.23(d)(1)). The remainder may be under a psychiatrist certified by the American Board of Psychiatry and Neurology, an LPCC, an LMFT, a licensed psychologist, or a licensed educational psychologist, though an LEP may supervise at most 1,200 hours and only educationally related services.</p></article>
+      <article class="card gold"><span class="tag">Minimum</span><span class="region-badge ca">California</span><h3>2,000 clinical hours, 750 of them psychotherapy</h3><p>Clinical psychosocial diagnosis, assessment, and treatment must total at least 2,000 hours, and at least 750 of those must be face-to-face individual or group psychotherapy provided in the context of clinical social work (BPC &sect;4996.23(d)(2)).</p></article>
+      <article class="card gold"><span class="tag">Maximum</span><span class="region-badge ca">California</span><h3>1,000 nonclinical hours</h3><p>Client-centered advocacy, consultation, evaluation, research, direct supervisor contact, and supervisor-approved workshops, seminars, trainings, and conferences directly related to clinical social work cap out at 1,000 hours (BPC &sect;4996.23(d)(3)).</p></article>
+      <article class="card gold"><span class="tag">Weekly</span><span class="region-badge ca">California</span><h3>One unit of supervision for every week you claim</h3><p>In each work setting, every week you credit hours must contain at least one hour of direct supervisor contact, and a week in which you provide more than 10 hours of clinical services in a setting needs one hour more (BPC &sect;4996.23.1(a)). Supervision must fall in the same week as the hours (&sect;4996.23.1(e)). No more than six hours of supervision are credited in any week.</p><div class="field"><span class="field-label">What counts as a unit</span><p class="soft">One hour of individual supervision (one supervisor, one supervisee), one hour of triadic supervision (one supervisor, two supervisees), or two hours of group supervision with no more than eight in the group. Real-time two-way video counts as face-to-face; the supervisor must assess whether video is appropriate for you within 60 days of starting, and document it.</p></div></article>
+      <article class="card gold"><span class="tag">Weekly</span><span class="region-badge ca">California</span><h3>52 of the 104 weeks must be individual or triadic</h3><p>Group supervision can carry at most half your weeks. Of the 52 weeks of individual or triadic supervision, at least 13 must be under an LCSW (BPC &sect;4996.23.1(f), (g)).</p></article>
+      <article class="card gold"><span class="tag">After</span><span class="region-badge ca">California</span><h3>Finishing your hours does not end supervision</h3><p>Once the 3,000 hours are in, you still owe at least one hour of direct supervisor contact per week for each setting where you do direct clinical work, until you are licensed (BPC &sect;4996.23.1(i)). Supervision of nonclinical work at that point is at the supervisor's discretion.</p></article>
+    </div>
+
+    <div class="subhead-row"><h3>Who can supervise you</h3></div>
+    <div class="grid wide" data-searchable>
+      <article class="card"><span class="tag">Supervisors</span><span class="region-badge ca">California</span><h3>Two years licensed, two years practicing, training done</h3><p>A supervisor must hold an active California license (or equivalent out-of-state license) as an LCSW, LMFT, LPCC, psychologist, LEP, or ABPN-certified psychiatrist for at least two of the five years before supervising, and must have practiced psychotherapy or supervised it for two of those five years (BPC &sect;4996.20(a)). The license must be active and not under suspension or probation. Check it any time at search.dca.ca.gov.</p><div class="field"><span class="field-label">Training</span><p class="soft">15 hours of supervision training before supervising for the first time in California, taken within two years before or 60 days after starting; six hours of supervision professional development in every renewal period they supervise; six hours to return after two years away. A current AAMFT, ABECSW, CAMFT, or CCE approved supervisor credential substitutes for all of it (16 CCR &sect;1871).</p></div></article>
+      <article class="card"><span class="tag">Supervisors</span><span class="region-badge ca">California</span><h3>Who is ruled out</h3><p>Your spouse, domestic partner, or relative cannot supervise you, nor can anyone who has provided you therapy, nor anyone with a past or present personal, professional, or business relationship that undermines the supervision (BPC &sect;4996.20(a)(4), (6), (7)). Hours gained under a spouse or relative are not credited, full stop (&sect;4996.23.2(e)).</p></article>
+      <article class="card"><span class="tag">Supervisors</span><span class="region-badge ca">California</span><h3>A cap of six in nonexempt settings</h3><p>In a nonexempt setting such as a private practice or professional corporation, a supervisor may serve as individual or triadic supervisor for no more than six pre-licensed people at one time (BPC &sect;4996.23.3(c)). If you are in a private practice, your supervisor must be employed by, contracted by, or an owner of that practice, and must either see clients there or hold a written contract giving them the same access to your records that employees have (&sect;4996.23.3(b)).</p></article>
+      <article class="card"><span class="tag">Protection</span><span class="region-badge ca">California</span><h3>Your hours survive your supervisor's paperwork failures</h3><p>The Board shall not deny hours because the supervisor did not complete the training, coursework, or professional development required of supervisors (16 CCR &sect;1871(e)). The Board can audit supervisors, who must keep proof of their qualifications for seven years after supervision ends (BPC &sect;4996.21). Their lapse is their problem, not your hours.</p></article>
+    </div>
+
+    <div class="subhead-row"><h3>Before you count a single hour</h3></div>
+    <div class="grid wide" data-searchable>
+      <article class="card"><span class="tag">Do First</span><span class="region-badge ca">California</span><h3>Sign the Supervision Agreement within 60 days</h3><p>For any supervisory relationship formed on or after 1 January 2022, you and your supervisor must sign the Board's Supervision Agreement within 60 days of starting (16 CCR &sect;1869(c)). It carries the supervisory plan, goals, and objectives. You keep the original and submit it with your licensure application.</p><a class="card-link" href="https://www.bbs.ca.gov/pdf/forms/supervision_agreement.pdf" target="_blank" rel="noopener">Supervision Agreement form (BBS) &#8599;</a></article>
+      <article class="card"><span class="tag">Do First</span><span class="region-badge ca">California</span><h3>Outside supervisor? Get the oversight agreement signed before hour one</h3><p>When your supervisor is not employed by your employer, or is a volunteer, the supervisor and employer must sign a written oversight agreement <strong>before</strong> supervision begins (BPC &sect;4996.23.3(d); 16 CCR &sect;1869(a)). It gives the supervisor access to your clinical records and commits the employer not to interfere. On employer letterhead, signed and dated, and it goes in with your application.</p></article>
+      <article class="card"><span class="tag">Records</span><span class="region-badge ca">California</span><h3>A weekly log, signed weekly</h3><p>You must keep a log of every hour claimed, signed by your supervisor each week, and retain it until you are licensed; the Board can demand any part of it (16 CCR &sect;1869(d)). Logs are not submitted with the application. What is submitted is the Experience Verification form, one per supervisor and employer, with original signatures, completed when that supervision ends.</p><a class="card-link" href="https://www.bbs.ca.gov/pdf/publications/lcsw_handbook.pdf" target="_blank" rel="noopener">Handbook for Future LCSWs, forms section (BBS) &#8599;</a></article>
+      <article class="card"><span class="tag">Do First</span><span class="region-badge ca">California</span><h3>Check that the setting qualifies</h3><p>Experience only counts in a setting that lawfully and regularly provides clinical social work, mental health counseling, or psychotherapy, and that provides oversight to keep your work inside the experience and supervision rules and the scope of practice (BPC &sect;4996.23.2(c)). Only work in the position you were hired or volunteered for counts (&sect;4996.23.2(d)).</p></article>
+    </div>
+
+    <div class="subhead-row"><h3>What can cost you your hours</h3></div>
+    <div class="callout"><span class="mark">CA</span><p><strong>W-2 or volunteer. Never a contractor.</strong> An ASW may perform services only as an employee or a volunteer, never as an independent contractor (BPC &sect;4996.23.2(a)). You will hand the Board your W-2s for every year claimed, or a letter verifying volunteer status. A 1099 arrangement, however it is described to you, produces hours the Board will not accept.</p></div>
+    <div class="grid" data-searchable>
+      <article class="card wine"><span class="tag">Watch For</span><span class="region-badge ca">California</span><h3>Letting the registration lapse</h3><p>Hours earned while your ASW registration is expired do not count, and most employers will not let you work on one. The usual cause is the Law and Ethics Exam: it must be taken before your first expiration date and once per cycle until passed, or you cannot renew (16 CCR &sect;1877.3). Renew on time, every year.</p></article>
+      <article class="card wine"><span class="tag">Watch For</span><span class="region-badge ca">California</span><h3>Private practice before the number arrives</h3><p>You may not be employed by, or volunteer in, a private practice or professional corporation until the Board has issued your ASW registration (BPC &sect;4996.23(c)). The 90-Day Rule does not cover those settings. And a subsequent registration number, the kind issued after the six-year limit, bars private practice entirely (&sect;4996.28(c)).</p></article>
+      <article class="card wine"><span class="tag">Watch For</span><span class="region-badge ca">California</span><h3>Money flowing the wrong way</h3><p>You may not accept any payment from clients; only your employer may pay you (BPC &sect;4996.23.2(h)). You may not hold any ownership interest in the employer, and you may not rent space, or pay for furnishings, equipment, supplies, or any other obligation of the employer (&sect;4996.23.2(i)). Arrangements where the associate pays the practice are exactly what this rule targets.</p></article>
+      <article class="card wine"><span class="tag">Watch For</span><span class="region-badge ca">California</span><h3>The six-year window closes behind you</h3><p>Only hours gained within the six years before the Board receives your application count (BPC &sect;4996.23(d)(4)). Take a long break in the middle, or miss the one-year clinical exam deadline and have to reapply, and your earliest hours can age out.</p></article>
+      <article class="card wine"><span class="tag">Watch For</span><span class="region-badge ca">California</span><h3>Supervision that is really consultation</h3><p>Consultation and peer discussion are not supervision and do not produce supervised experience (BPC &sect;4996.20(b)). Supervision means responsibility for and control of the quality of your services: reviewing your notes, monitoring your assessments and treatment decisions, and, with client consent, observing or reviewing recordings of your sessions.</p></article>
+      <article class="card wine"><span class="tag">Watch For</span><span class="region-badge ca">California</span><h3>Working where the employer does not do business</h3><p>You may only provide services at places where your employer permits business to be conducted (BPC &sect;4996.23.3(a)). Telehealth within scope is allowed for ASWs (&sect;4996.23.2(j)), but the employer still has to be the one offering the service.</p></article>
+    </div>
+
+    <div class="subhead-row"><h3>Protections you have</h3></div>
+    <div class="grid wide" data-searchable>
+      <article class="card pine"><span class="tag">Protection</span><span class="region-badge ca">California</span><h3>A week's written notice before a supervisor stops signing</h3><p>A supervisor must give you at least one week's written notice of an intent not to sign for further hours. Without that notice, the supervisor must sign for hours you gained in good faith where supervision was actually provided (16 CCR &sect;1870(b)).</p></article>
+      <article class="card pine"><span class="tag">Protection</span><span class="region-badge ca">California</span><h3>You get a copy of every assessment of you</h3><p>Supervisors must complete ongoing assessments of your strengths and limitations and give you a copy of each one (16 CCR &sect;1870(a)(10)). They must also give you written procedures for reaching them, or an on-call alternate, in a crisis (&sect;1870(a)(11)).</p></article>
+      <article class="card pine"><span class="tag">Protection</span><span class="region-badge ca">California</span><h3>Stipends and loan repayment do not make you a contractor</h3><p>A stipend or loan repayment from a program built to bring underrepresented groups into the profession or to staff underserved settings still leaves you an employee for these purposes, as does reimbursement of actual expenses while volunteering (BPC &sect;4996.23.2(f), (g)). Keep the paperwork; the Board may audit and the burden is on you.</p></article>
+      <article class="card pine"><span class="tag">Protection</span><span class="region-badge ca">California</span><h3>Cover during your supervisor's absence</h3><p>Alternative supervision may be arranged during a supervisor's vacation or sick leave, provided the substitute meets every supervisor requirement and signs your supervision agreement and weekly log (BPC &sect;4996.23.1(h); 16 CCR &sect;1870.3). For 30 days or less the substitute follows your existing supervisory plan; beyond 30 days a new plan is required and the substitute verifies those hours.</p></article>
+    </div>
+
+    <div class="note"><span class="mark">CA</span><p><strong>Two more Board publications worth reading before you sign anything:</strong> the <a href="https://www.bbs.ca.gov/pdf/publications/supervision_brochure.pdf" target="_blank" rel="noopener">Guide to Supervision for Associates &#8599;</a> and the <a href="https://www.bbs.ca.gov/pdf/forms/lcs/asw_supervisor_info.pdf" target="_blank" rel="noopener">ASW Supervisor Qualifications sheet &#8599;</a>, both from the Board of Behavioral Sciences.</p></div>
+    </div>
+
   </section>
 
   <section class="chapter" id="practice">
@@ -1877,6 +2061,8 @@ No more than 10 hours of supervision count in any single 30-day period, so you c
       document.querySelectorAll("section.chapter").forEach(function(sec){
         var secMatches = 0;
         sec.querySelectorAll("[data-searchable]").forEach(function(container){
+          var block = container.closest(".state-block");
+          if(block && !block.classList.contains("active")) return;
           var isTable = container.matches(".table-wrap");
           var items = isTable ? Array.prototype.slice.call(container.querySelectorAll("tbody tr"))
                                : Array.prototype.slice.call(container.children);
@@ -2226,6 +2412,32 @@ No more than 10 hours of supervision count in any single 30-day period, so you c
       btn.classList.toggle("active", btn.getAttribute("data-theme-choice") === choice);
     });
   }
+  // ---------- state picker ----------
+  // Licensure and Supervision hold one block per state. One selection drives every
+  // picker and every block, and it is remembered alongside the theme.
+  var STATES = { TX: "Texas", CA: "California" };
+  function applyState(code){
+    if(!STATES[code]) code = "";
+    document.querySelectorAll(".state-block").forEach(function(b){
+      b.classList.toggle("active", b.getAttribute("data-state") === code);
+    });
+    document.querySelectorAll("[data-state-select]").forEach(function(sel){ sel.value = code; });
+    document.querySelectorAll("[data-state-empty]").forEach(function(n){ n.hidden = !!code; });
+    try{ if(code) localStorage.setItem("gwState", code); else localStorage.removeItem("gwState"); }catch(e){}
+    // The search skips blocks that are not showing, so re-run it for the one that now is.
+    var input = document.getElementById("filterInput");
+    if(input) input.dispatchEvent(new Event("input"));
+  }
+  function setupStatePicker(){
+    document.addEventListener("change", function(ev){
+      var sel = ev.target.closest("[data-state-select]");
+      if(sel) applyState(sel.value);
+    });
+    var saved = "";
+    try{ saved = localStorage.getItem("gwState") || ""; }catch(e){}
+    applyState(saved);
+  }
+
   function setupTheme(){
     var saved = "system";
     try{ saved = localStorage.getItem(THEME_KEY) || "system"; } catch(e){}
@@ -2556,6 +2768,7 @@ No more than 10 hours of supervision count in any single 30-day period, so you c
     linkifyStaticPhones(document.getElementById("app-root"));
     setupTelFallback();
     setupTheme();
+    setupStatePicker();
     setupFilter();
     setupResourceFilters();
     setupPrintableFilters();
