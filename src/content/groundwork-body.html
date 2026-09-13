@@ -64,7 +64,7 @@
   .rail-list a{display:flex; align-items:center; gap:10px; text-decoration:none; font-size:0.85rem; font-weight:500; color:var(--ink-soft); padding:7px 8px; border-radius:8px; transition:background 0.15s ease, color 0.15s ease;}
   .rail-list a:hover{background:var(--paper-raised); color:var(--ink);}
   .rail-list a.active{background:var(--paper-raised); color:var(--ink); font-weight:600; box-shadow:inset 0 0 0 1px var(--line);}
-  .theme-toggle{display:flex; gap:2px; background:var(--paper); border:1px solid var(--line); border-radius:99px; padding:3px; margin:0 6px;}
+  .theme-toggle{margin-top:auto; display:flex; gap:2px; background:var(--paper); border:1px solid var(--line); border-radius:99px; padding:3px; margin:0 6px;}
   .theme-toggle button{flex:1; border:none; background:none; color:var(--ink-soft); font-family:inherit; font-size:0.72rem; font-weight:600; padding:5px 0; border-radius:99px; cursor:pointer;}
   .theme-toggle button.active{background:var(--pine); color:var(--on-accent);}
   .theme-toggle button:hover:not(.active){color:var(--ink);}
@@ -73,7 +73,7 @@
   .icon-chip.gold{background:var(--gold-soft); color:var(--gold);}
   .icon-chip.wine{background:var(--wine-soft); color:var(--wine);}
   .icon-chip.neutral{background:var(--paper); color:var(--ink-soft); box-shadow:inset 0 0 0 1px var(--line);}
-  .rail-foot{margin-top:auto; padding:10px 8px 4px; font-size:0.72rem; color:var(--ink-soft); line-height:1.5; border-top:1px solid var(--line); padding-top:12px;}
+  .rail-foot{padding:10px 8px 4px; font-size:0.72rem; color:var(--ink-soft); line-height:1.5; border-top:1px solid var(--line); padding-top:12px;}
 
   /* Centred in its column so a wide monitor doesn't leave the whole page
      hugging the left edge with dead space on the right. */
@@ -417,6 +417,8 @@
     .rail.open .theme-toggle{display:flex;}
     .rail.open .rail-foot{display:block;}
     .rail.open .rail-search{display:block;}
+    /* In the dropdown the toggle sits under the search box, where a thumb can reach it. */
+    .rail-search{order:1;} .rail .theme-toggle{order:2; margin-top:0;} .rail-list{order:3;} .rail-foot{order:4;}
     .rail-list li{min-width:0;}
     .rail-list a{padding:10px 8px;}
     main{padding-top:22px;}
@@ -433,11 +435,6 @@
         <span class="rail-toggle-label">Contents</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
-    </div>
-    <div class="theme-toggle" id="themeToggle" role="group" aria-label="Color theme">
-      <button type="button" data-theme-choice="light">Light</button>
-      <button type="button" data-theme-choice="system">Auto</button>
-      <button type="button" data-theme-choice="dark">Dark</button>
     </div>
     <div class="rail-search" id="railSearch"></div>
     <ul class="rail-list" id="railList">
@@ -457,6 +454,11 @@
       <li><a href="#printables" data-target="printables"><span class="icon-chip pine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V3h12v6"/><rect x="4" y="9" width="16" height="8" rx="1.5"/><path d="M6 14h12v7H6z"/></svg></span>Printables</a></li>
       <li><a href="#glossary" data-target="glossary"><span class="icon-chip neutral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-2-1.3-4.5-2-7-2v14c2.5 0 5 .7 7 2 2-1.3 4.5-2 7-2V4c-2.5 0-5 .7-7 2z"/><path d="M12 6v14"/></svg></span>Glossary</a></li>
     </ul>
+    <div class="theme-toggle" id="themeToggle" role="group" aria-label="Color theme">
+      <button type="button" data-theme-choice="light">Light</button>
+      <button type="button" data-theme-choice="system">Auto</button>
+      <button type="button" data-theme-choice="dark">Dark</button>
+    </div>
     <div class="rail-foot">Practice &amp; resource reference<br>The Grounded Elephant &middot; read only</div>
   </nav>
 
@@ -575,7 +577,7 @@
     </div>
     <p class="chapter-intro">The structured interventions and treatment approaches applied in session.</p>
     <div class="grid wide" id="modalities-grid" data-searchable></div>
-    <div class="note"><span class="mark">SRC</span><p>Trauma-informed care's six principles are from SAMHSA's 2014 concept paper, reaffirmed and expanded in SAMHSA's <a href="https://www.samhsa.gov/resource/ebp/practical-guide-implementing-trauma-informed-approach" target="_blank" rel="noopener">2023 Practical Guide for Implementing a Trauma-Informed Approach</a>. The principles themselves are unchanged, only the implementation guidance is newer.</p></div>
+    <div class="note"><span class="mark">SRC</span><p>Trauma-informed care's six principles are from SAMHSA's 2014 concept paper, reaffirmed and expanded in SAMHSA's <a href="https://www.govinfo.gov/app/details/GOVPUB-HE20_400-PURL-gpo222738" target="_blank" rel="noopener">2023 Practical Guide for Implementing a Trauma-Informed Approach</a>. The principles themselves are unchanged, only the implementation guidance is newer.</p></div>
   </section>
 
 
@@ -1361,7 +1363,7 @@ No more than 10 hours of supervision count in any single 30-day period, so you c
     {"id":"m2","tag":"Modality","title":"Dialectical Behavior Therapy (DBT)","body":"Developed by Marsha Linehan for chronic emotion dysregulation. Balances acceptance and change across four skill modules.","detailLabel":"Four modules","detail":"Mindfulness, Distress Tolerance, Emotion Regulation, Interpersonal Effectiveness.","linkUrl":"https://www.linehaninstitute.org/what-is-dbt-skills","linkLabel":"Read more: What are DBT & DBT skills? (Linehan Institute)"},
     {"id":"m3","tag":"Modality","title":"Motivational Interviewing (MI)","body":"A collaborative, client-centered style for strengthening motivation to change, especially around ambivalence (substance use, health behaviors).","detailLabel":"OARS skills","detail":"Open questions, Affirmations, Reflective listening, Summarizing.","linkUrl":"https://motivationalinterviewing.org/understanding-motivational-interviewing","linkLabel":"Read more: Understanding MI (MINT)"},
     {"id":"m4","tag":"Modality","title":"Solution-Focused Brief Therapy (SFBT)","body":"Future-oriented and brief. Focuses on what's already working and the client's vision of change rather than problem history.","detailLabel":"Core techniques","detail":"Miracle question, scaling questions (0-10), exception-finding.","linkUrl":"https://solutionfocused.net/what-is-solution-focused-therapy/","linkLabel":"Read more: What is solution-focused therapy? (SFT Institute)"},
-    {"id":"m5","tag":"Modality","title":"Trauma-Informed Care","body":"Not a specific technique but an organizational stance: recognize the widespread impact of trauma and actively avoid re-traumatization.","detailLabel":"SAMHSA's six principles","detail":"Safety; Trustworthiness & Transparency; Peer Support; Collaboration & Mutuality; Empowerment, Voice & Choice; Cultural, Historical & Gender Issues.","linkUrl":"https://www.samhsa.gov/resource/ebp/practical-guide-implementing-trauma-informed-approach","linkLabel":"Read more: Practical guide to trauma-informed care (SAMHSA)"},
+    {"id":"m5","tag":"Modality","title":"Trauma-Informed Care","body":"Not a specific technique but an organizational stance: recognize the widespread impact of trauma and actively avoid re-traumatization.","detailLabel":"SAMHSA's six principles","detail":"Safety; Trustworthiness & Transparency; Peer Support; Collaboration & Mutuality; Empowerment, Voice & Choice; Cultural, Historical & Gender Issues.","linkUrl":"https://www.govinfo.gov/app/details/GOVPUB-HE20_400-PURL-gpo222738","linkLabel":"Read more: Practical guide to trauma-informed care (SAMHSA)"},
     {"id":"m6","tag":"Modality","title":"Narrative Therapy","body":"The client is not the problem; the problem is the problem. Externalize the issue from identity, then help the client re-author a preferred life story.","detailLabel":"Core techniques, and prompts for a case","detail":"Externalizing language, unique outcomes, re-authoring conversations.\nSix questions to work a case through, in supervision or on your own: What are the dominant themes in the client's story? What is being ignored or subjugated? How does the client describe the problem in their own words, and how can you use that language? What cultural and societal expectations are shaping the story? How could the problem be externalized? What creative ways might help the client tell the story, or revise it toward a more fulfilling one?","linkUrl":"https://dulwichcentre.com.au/what-is-narrative-therapy/","linkLabel":"Read more: What is narrative therapy? (Dulwich Centre)"},
     {"id":"m7","tag":"Modality","title":"Person-Centered (Humanistic)","body":"Carl Rogers: people move toward growth when given the right relational conditions. The clinician's stance matters as much as any technique.","detailLabel":"Core conditions","detail":"Unconditional positive regard, empathy, congruence (genuineness).","linkUrl":"https://www.ncbi.nlm.nih.gov/books/NBK589708/","linkLabel":"Read more: Person-centered therapy (StatPearls, NCBI)"},
     {"id":"m8","tag":"Modality","title":"Crisis Intervention","body":"Short-term, structured support aimed at stabilizing a person in acute distress and restoring their pre-crisis level of functioning.","detailLabel":"General sequence","detail":"Ensure safety, build rapport, identify the precipitating problem, explore coping and alternatives, develop an action plan, follow up.","linkUrl":"https://www.samhsa.gov/mental-health/national-behavioral-health-crisis-care","linkLabel":"Read more: National crisis care guidance (SAMHSA)"},
