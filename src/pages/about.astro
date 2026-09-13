@@ -1,7 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
 import Footprint from '../components/Footprint.astro';
-import SprayDrawing from '../components/SprayDrawing.astro';
 ---
 <Base
   title="About The Grounded Elephant"
@@ -50,10 +49,8 @@ import SprayDrawing from '../components/SprayDrawing.astro';
         <h2>Why an elephant</h2>
         <p>Elephants remember everything and never leave the herd behind. That felt about right.</p>
       </div>
-      <figure class="spray-fig">
-        <SprayDrawing width={320} />
-        <figcaption>Drawn by Violet, age 10. The water turns into the name.</figcaption>
-      </figure>
+      <!-- Image slot: when the Midjourney elephant is ready, drop it in as
+           <figure class="spray-fig"><img src="/elephant.png" alt="..."><figcaption>...</figcaption></figure> -->
     </div>
 
     <h2 id="contact">Send me your requests</h2>
