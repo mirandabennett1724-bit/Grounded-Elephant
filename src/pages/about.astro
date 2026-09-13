@@ -1,5 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
+import Footprint from '../components/Footprint.astro';
+import SprayDrawing from '../components/SprayDrawing.astro';
 ---
 <Base
   title="About The Grounded Elephant"
@@ -43,8 +45,16 @@ import Base from '../layouts/Base.astro';
       everywhere is badged <strong>National</strong>, so nobody outside Texas gets caught by a rule that isn't theirs.
     </p>
 
-    <h2>Why an elephant</h2>
-    <p>Elephants remember everything and never leave the herd behind. That felt about right.</p>
+    <div class="why">
+      <div>
+        <h2>Why an elephant</h2>
+        <p>Elephants remember everything and never leave the herd behind. That felt about right.</p>
+      </div>
+      <figure class="spray-fig">
+        <SprayDrawing width={320} />
+        <figcaption>Drawn by Violet, age 10. The water turns into the name.</figcaption>
+      </figure>
+    </div>
 
     <h2 id="contact">Send me your requests</h2>
     <p>
@@ -56,20 +66,24 @@ import Base from '../layouts/Base.astro';
       <a class="btn btn-mail" href="mailto:groundedelephant@gmail.com?subject=Groundwork%20request">groundedelephant@gmail.com</a>
     </p>
 
-    <p class="cta"><a class="btn" href="/groundwork/">Lay the Groundwork</a></p>
+    <p class="cta"><a class="btn" href="/groundwork/"><Footprint size={17} /><span>Lay the Groundwork</span></a></p>
   </section>
 </Base>
 
 <style>
   .kicker{font-size:0.72rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--wine); margin:0 0 8px;}
-  .about{max-width:68ch;}
+  .about{max-width:76ch;}
   .about h1{font-family:var(--font-display); font-size:clamp(1.9rem,4vw,2.6rem); line-height:1.15; margin:0 0 12px;}
   .about h2{font-family:var(--font-display); font-size:1.25rem; margin:30px 0 8px;}
   .lede{font-size:1.1rem; color:var(--ink-soft); margin:0 0 6px;}
   .about p{margin:0 0 12px;}
   .cta{margin-top:28px;}
+  .why{display:flex; gap:28px; align-items:flex-start; flex-wrap:wrap;}
+  .why > div{flex:1 1 260px;}
+  .spray-fig{flex:0 1 320px; margin:6px 0 0;}
+  .spray-fig figcaption{font-size:0.82rem; color:var(--ink-soft); margin-top:6px; text-align:center;}
   .contact-row{margin:6px 0 0;}
-  .btn{display:inline-block; text-decoration:none; font-weight:600; font-size:0.92rem; padding:11px 18px; border-radius:99px;
+  .btn{display:inline-flex; align-items:center; gap:8px; text-decoration:none; font-weight:600; font-size:0.92rem; padding:11px 18px; border-radius:99px;
        border:1px solid var(--pine); color:var(--on-accent); background:var(--pine); box-shadow:var(--shadow);}
   .btn-mail{background:var(--paper-raised); color:var(--pine); border-color:var(--pine);}
 </style>

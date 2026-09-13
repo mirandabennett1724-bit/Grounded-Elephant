@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Footprint from '../components/Footprint.astro';
 
 // Every Groundwork chapter, deep-linked. Groundwork opens on the chapter named in
 // the hash, so these land the reader exactly where they need to be.
@@ -32,7 +33,7 @@ const chapters = [
       Practical, verified tools for social workers and counselors who need the answer now, not the lecture.
     </p>
     <div class="cta-row">
-      <a class="btn btn-primary" href="/groundwork/">Lay the Groundwork</a>
+      <a class="btn btn-primary" href="/groundwork/"><Footprint size={17} /><span>Lay the Groundwork</span></a>
       <a class="btn" href="/about/">Read my story</a>
     </div>
   </section>
@@ -52,7 +53,7 @@ const chapters = [
       <li>Verified against primary sources, with the date of the last check on every page</li>
       <li>Prints clean. Works on a phone. No login, no tracking, no client data ever touches it</li>
     </ul>
-    <a class="btn btn-primary" href="/groundwork/">Lay the Groundwork</a>
+    <a class="btn btn-primary" href="/groundwork/"><Footprint size={17} /><span>Lay the Groundwork</span></a>
   </section>
 
   <section class="chapters" aria-labelledby="chapters-h">
@@ -93,7 +94,7 @@ const chapters = [
                   background:linear-gradient(90deg, var(--pine), var(--wine));}
   .lede{font-size:1.15rem; color:var(--ink-soft); max-width:56ch; margin:0 0 22px;}
   .cta-row{display:flex; gap:10px; flex-wrap:wrap;}
-  .btn{display:inline-block; text-decoration:none; font-weight:600; font-size:0.92rem; padding:11px 18px; border-radius:99px;
+  .btn{display:inline-flex; align-items:center; gap:8px; text-decoration:none; font-weight:600; font-size:0.92rem; padding:11px 18px; border-radius:99px;
        border:1px solid var(--line); color:var(--ink); background:var(--paper-raised); box-shadow:var(--shadow);}
   .btn:hover{transform:translateY(-1px);}
   .btn-primary{background:var(--pine); border-color:var(--pine); color:var(--on-accent);}

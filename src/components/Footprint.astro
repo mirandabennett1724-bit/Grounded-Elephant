@@ -1,0 +1,13 @@
+---
+// The footprint icon used on "Lay the Groundwork" buttons. Filled, so it holds at
+// button sizes; takes its color from the button text.
+interface Props { size?: number; }
+const { size = 18 } = Astro.props;
+---
+<svg width={size} height={size} viewBox="0 0 64 64" fill="currentColor" aria-hidden="true" style="display:block; flex-shrink:0">
+  <circle cx="32" cy="40" r="19"/>
+  <ellipse cx="12" cy="27" rx="5.5" ry="6.5" transform="rotate(-28 12 27)"/>
+  <ellipse cx="23" cy="16" rx="5.5" ry="6.5" transform="rotate(-10 23 16)"/>
+  <ellipse cx="41" cy="16" rx="5.5" ry="6.5" transform="rotate(10 41 16)"/>
+  <ellipse cx="52" cy="27" rx="5.5" ry="6.5" transform="rotate(28 52 27)"/>
+</svg>

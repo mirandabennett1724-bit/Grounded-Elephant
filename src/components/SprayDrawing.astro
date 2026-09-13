@@ -1,0 +1,52 @@
+---
+// Violet's drawing, refined: an elephant spraying water that turns into the name.
+// Colors come from the site tokens, so it follows light and dark on its own.
+interface Props { width?: number; }
+const { width = 360 } = Astro.props;
+const height = Math.round(width * 360 / 440);
+---
+<svg width={width} height={height} viewBox="0 0 440 360" class="spray" role="img" aria-label="An elephant spraying water that turns into the words Grounded Elephant">
+  <defs>
+    <path id="spray-w1" d="M 30 84 C 110 44, 190 124, 260 80 S 380 42, 420 76"/>
+    <path id="spray-w2" d="M 60 164 C 130 128, 210 192, 280 146 S 380 128, 416 148"/>
+  </defs>
+  <g class="ink" opacity="0.9">
+    <ellipse cx="198" cy="176" rx="4.2" ry="6.5" transform="rotate(-40 198 176)"/>
+    <ellipse cx="242" cy="176" rx="4.2" ry="6.5" transform="rotate(40 242 176)"/>
+    <ellipse cx="220" cy="162" rx="4.2" ry="7"/>
+    <ellipse cx="180" cy="160" rx="3.6" ry="5.6" transform="rotate(-55 180 160)"/>
+    <ellipse cx="260" cy="160" rx="3.6" ry="5.6" transform="rotate(55 260 160)"/>
+    <circle cx="164" cy="144" r="2.8"/><circle cx="276" cy="144" r="2.8"/>
+    <circle cx="204" cy="140" r="2.6"/><circle cx="236" cy="140" r="2.6"/>
+    <circle cx="220" cy="128" r="2.2"/><circle cx="188" cy="130" r="2"/><circle cx="252" cy="130" r="2"/>
+  </g>
+  <g class="line" fill="none" stroke-width="3" stroke-linecap="round">
+    <path d="M 206 196 C 194 182, 178 170, 158 162"/>
+    <path d="M 234 196 C 246 182, 262 170, 282 162"/>
+    <path d="M 220 194 C 220 180, 220 168, 220 154" opacity="0.7"/>
+  </g>
+  <g class="words" font-family="Fredoka, 'Baloo 2', system-ui, sans-serif" font-weight="700" font-size="54" letter-spacing="2" stroke-width="3" stroke-linejoin="round" paint-order="stroke fill">
+    <text text-anchor="middle"><textPath href="#spray-w1" startOffset="50%">Grounded</textPath></text>
+    <text font-size="50" text-anchor="middle"><textPath href="#spray-w2" startOffset="50%">Elephant</textPath></text>
+  </g>
+  <g class="skin" stroke-width="3.5" stroke-linejoin="round">
+    <path d="M 176 270 C 150 244, 112 252, 116 284 C 96 294, 104 326, 134 322 C 140 342, 176 338, 180 314 Z"/>
+    <path d="M 264 270 C 290 244, 328 252, 324 284 C 344 294, 336 326, 306 322 C 300 342, 264 338, 260 314 Z"/>
+    <path d="M 209 278 L 205 206 C 204 198, 236 198, 235 206 L 231 278 Z"/>
+  </g>
+  <path class="line" d="M 209 232 Q 220 236, 231 232 M 208 254 Q 220 258, 232 254" fill="none" stroke-width="2.2" stroke-linecap="round" opacity="0.55"/>
+  <circle class="skin" cx="220" cy="300" r="42" stroke-width="3.5"/>
+  <g class="line" fill="none" stroke-width="3.5" stroke-linecap="round">
+    <path d="M 196 294 l 8 6 l -8 6"/>
+    <path d="M 244 294 l -8 6 l 8 6"/>
+  </g>
+  <path class="line" d="M 209 276 Q 220 282, 231 276" fill="none" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+</svg>
+
+<style>
+  .spray{display:block; max-width:100%; height:auto;}
+  .spray .ink{fill:var(--pine);}
+  .spray .line{stroke:var(--pine);}
+  .spray .words{fill:var(--paper-raised); stroke:var(--pine);}
+  .spray .skin{fill:var(--pine-soft); stroke:var(--pine);}
+</style>
