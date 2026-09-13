@@ -91,6 +91,14 @@
   .searchbar{display:flex; align-items:center; gap:10px; background:var(--paper-raised); border:1px solid var(--line); border-radius:9px; padding:9px 13px; max-width:420px;}
   .searchbar input{border:none; background:none; outline:none; font-family:inherit; font-size:0.9rem; color:var(--ink); width:100%;}
   .searchbar input::placeholder{color:var(--ink-soft);}
+  /* Off Start Here the description steps aside and the search box moves into the rail. */
+  .shell.section-view .masthead{display:none;}
+  .rail-search{margin:2px 6px 6px;}
+  .rail-search:empty{display:none;}
+  .rail-search .searchbar{max-width:none; padding:7px 10px; flex-wrap:wrap; row-gap:4px;}
+  .rail-search .searchbar input{flex:1 1 0; width:auto; min-width:0;}
+  .rail-search .search-count{flex-basis:100%; padding-left:25px;}
+  .rail-search .search-count:empty{display:none;}
   .search-count{font-size:0.78rem; color:var(--ink-soft); white-space:nowrap;}
 
   section.chapter{margin-bottom:52px; scroll-margin-top:24px;}
@@ -405,10 +413,11 @@
           border-bottom:1px solid var(--line); min-width:0; width:100%;
           padding:10px 14px; gap:10px;}
     .rail-toggle{display:inline-flex;}
-    .rail-list, .rail .theme-toggle, .rail-foot{display:none;}
+    .rail-list, .rail .theme-toggle, .rail-foot, .rail-search{display:none;}
     .rail.open .rail-list{display:flex; flex-direction:column; gap:2px;}
     .rail.open .theme-toggle{display:flex;}
     .rail.open .rail-foot{display:block;}
+    .rail.open .rail-search{display:block;}
     .rail-list li{min-width:0;}
     .rail-list a{padding:10px 8px;}
     main{padding-top:22px;}
@@ -431,6 +440,7 @@
       <button type="button" data-theme-choice="system">Auto</button>
       <button type="button" data-theme-choice="dark">Dark</button>
     </div>
+    <div class="rail-search" id="railSearch"></div>
     <ul class="rail-list" id="railList">
       <li><a href="#start" data-target="start"><span class="icon-chip pine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg></span>Start Here</a></li>
       <li><a href="#ethics" data-target="ethics"><span class="icon-chip pine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span>Foundations &amp; Ethics</a></li>
@@ -2112,6 +2122,7 @@ No more than 10 hours of supervision count in any single 30-day period, so you c
     document.querySelectorAll(".rail-list a").forEach(function(a){
       a.classList.toggle("active", a.getAttribute("data-target") === id);
     });
+    placeSearch(id);
     renderPager();
     if(!opts || opts.scroll !== false){
       // On a phone the nav sits above the content, so scrolling to 0 would land the
@@ -2126,6 +2137,16 @@ No more than 10 hours of supervision count in any single 30-day period, so you c
       }
     }
     try{ history.replaceState(null, "", "#" + id); }catch(e){}
+  }
+  // The search box is one element that lives in the masthead on Start Here and in
+  // the rail everywhere else, so its listeners and typed text travel with it.
+  function placeSearch(id){
+    var home = id === CHAPTERS[0];
+    var shell = document.querySelector(".shell");
+    if(shell) shell.classList.toggle("section-view", !home);
+    var box = document.querySelector(".masthead .searchbar, #railSearch .searchbar");
+    var slot = home ? document.querySelector(".masthead") : document.getElementById("railSearch");
+    if(box && slot && box.parentElement !== slot) slot.appendChild(box);
   }
   function isCompact(){
     return window.matchMedia("(max-width: 860px), (max-height: 500px)").matches;
