@@ -37,3 +37,13 @@ img{max-width:100%; height:auto;}
 /* Honour the hidden attribute over any author display rule. Groundwork's Start Here
    doors, and anything else that toggles `hidden`, depend on this. */
 [hidden]:not([hidden="until-found"]){display:none !important;}
+
+/* A pair of images, one per theme. Mark them .only-light / .only-dark and the
+   right one shows for the active theme, including the explicit toggle. */
+.only-dark{display:none;}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .only-light{display:none;}
+  :root:not([data-theme="light"]) .only-dark{display:block;}
+}
+:root[data-theme="dark"] .only-light{display:none;}
+:root[data-theme="dark"] .only-dark{display:block;}
