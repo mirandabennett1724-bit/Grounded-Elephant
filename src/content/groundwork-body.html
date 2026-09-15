@@ -252,12 +252,8 @@
   .state-pick .soft{font-size:0.78rem;}
   .state-block{display:none;}
   .state-block.active{display:block;}
-  .scope-key{display:flex; flex-direction:column; gap:8px; font-size:0.82rem; color:var(--ink-soft); margin:4px 0 18px;}
-  /* Each badge stays on the same line as the start of its own description; the
-     description wraps under itself rather than the badge drifting to its own row. */
-  .scope-item{display:flex; flex-wrap:wrap; align-items:baseline; gap:8px 10px;}
-  .scope-item .region-badge{flex-shrink:0; margin-top:0;}
-  .scope-item > span:last-child{flex:1 1 220px; min-width:0;}
+  .state-pick .scope-line{flex-basis:100%; font-size:0.78rem; color:var(--ink-soft); display:flex; align-items:baseline; gap:8px; flex-wrap:wrap;}
+  .state-pick .scope-line .region-badge{flex-shrink:0; margin-top:0;}
 
   .res-filters{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:0 0 18px;}
   .res-chips{display:flex; flex-wrap:wrap; gap:6px;}
@@ -509,12 +505,6 @@
       <div class="chapter-head-title"><h2>Start Here</h2></div>
     </div>
     <p class="chapter-intro">Pick a door. Whatever is going on right now, the part of Groundwork that handles it is one click away, filters already set.</p>
-    <div class="scope-key" role="note" aria-label="How jurisdiction is marked">
-      <strong>Quick heads-up before you lean on a rule:</strong>
-      <div class="scope-item"><span class="region-badge tx">Texas</span><span class="region-badge ca">California</span><span class="region-badge fl">Florida</span><span class="region-badge wa">Washington</span><span class="region-badge ny">New York</span><span>a state badge means the rule applies in that state only; other states have their own version and the numbers differ.</span></div>
-      <div class="scope-item"><span class="region-badge us">National</span><span>applies everywhere in the US.</span></div>
-    </div>
-
     <div class="start-fork" role="group" aria-label="Who do you need something for?">
       <button type="button" class="fork-btn" data-fork="client" aria-expanded="false"><span class="fork-q">I need something for my client</span><span class="fork-a">Crisis, a bed tonight, food, an ID, a lawyer, a parent who is drowning. The things that cannot wait.</span></button>
       <button type="button" class="fork-btn" data-fork="me" aria-expanded="false"><span class="fork-q">I need something for me</span><span class="fork-a">Group plans, screeners, notes, licensure, supervision, CEUs, the private practice itch, and the days this work gets heavy.</span></button>
@@ -596,6 +586,7 @@
         <option value="NY">New York</option>
       </select>
       <span class="soft">The NASW Code and the small-town cards apply everywhere. Choose a state for the conduct rules its board enforces. More states coming soon.</span>
+      <span class="scope-line"><span class="region-badge us">National</span> cards apply everywhere in the US; a card with a state badge applies in that state only.</span>
     </div>
 
     <div class="note" data-state-empty><span class="mark">STATE</span><p><strong>Pick your state above.</strong> Each state's board enforces its own conduct rules: what counts as a prohibited relationship, how sexual misconduct and impairment are defined, what you must report and when, and what a record must contain. Nothing below this line appears until a state is chosen.</p></div>
@@ -891,6 +882,7 @@
         <option value="NY">New York</option>
       </select>
       <span class="soft">Safety planning, de-escalation, and the warm handoff apply everywhere. Choose a state for its emergency detention, mandated reporting, and duty-to-warn law. More states coming soon.</span>
+      <span class="scope-line"><span class="region-badge us">National</span> cards apply everywhere in the US; a card with a state badge applies in that state only.</span>
     </div>
 
     <div class="note" data-state-empty><span class="mark">STATE</span><p><strong>Pick your state above.</strong> Who can detain someone and for how long, how fast a report is due and to whom, and whether a threat creates a duty to warn are all state law. Nothing below this line appears until a state is chosen.</p></div>
@@ -962,6 +954,7 @@
         <option value="NY">New York</option>
       </select>
       <span class="soft">The free national courses apply everywhere. Choose a state for what its board requires each renewal and which of these it accepts. More states coming soon.</span>
+      <span class="scope-line"><span class="region-badge us">National</span> cards apply everywhere in the US; a card with a state badge applies in that state only.</span>
     </div>
 
     <div class="note" data-state-empty><span class="mark">STATE</span><p><strong>Pick your state above.</strong> Every state sets its own renewal hours, mandatory topics, and rules for which providers count. Nothing below this line appears until a state is chosen.</p></div>
@@ -1012,6 +1005,7 @@
         <option value="NY">New York</option>
       </select>
       <span class="soft">What holds in every state comes first. Choose a state for its exams, fees, hours, and renewal rules. More states coming soon.</span>
+      <span class="scope-line"><span class="region-badge us">National</span> cards apply everywhere in the US; a card with a state badge applies in that state only.</span>
     </div>
 
     <div class="subhead-row"><h3>What holds in every state</h3></div>
@@ -1398,6 +1392,7 @@ No more than 10 hours of supervision count in any single 30-day period, so you c
         <option value="NY">New York</option>
       </select>
       <span class="soft">What holds in every state comes first. Choose a state for its exams, fees, hours, and renewal rules. More states coming soon.</span>
+      <span class="scope-line"><span class="region-badge us">National</span> cards apply everywhere in the US; a card with a state badge applies in that state only.</span>
     </div>
 
     <div class="subhead-row"><h3>What holds in every state</h3></div>
@@ -1717,6 +1712,7 @@ No more than 10 hours of supervision count in any single 30-day period, so you c
         <option value="NY">New York</option>
       </select>
       <span class="soft">What holds in every state comes first. Choose a state for its ownership, entity, records, billing, and advertising rules. More states coming soon.</span>
+      <span class="scope-line"><span class="region-badge us">National</span> cards apply everywhere in the US; a card with a state badge applies in that state only.</span>
     </div>
 
     <div class="subhead-row"><h3>What holds in every state</h3></div>
@@ -2272,6 +2268,7 @@ No more than 10 hours of supervision count in any single 30-day period, so you c
         <option value="NY">New York</option>
       </select>
       <span class="soft">The titles and national boards apply everywhere. Choose a state for its government portals and the titles its agencies use. More states coming soon.</span>
+      <span class="scope-line"><span class="region-badge us">National</span> cards apply everywhere in the US; a card with a state badge applies in that state only.</span>
     </div>
 
     <div class="note" data-state-empty><span class="mark">STATE</span><p><strong>Pick your state above.</strong> Each state's largest social work employer is the state itself, and each one hires through its own portal under its own job titles. Nothing below this line appears until a state is chosen.</p></div>
