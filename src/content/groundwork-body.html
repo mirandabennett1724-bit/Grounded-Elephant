@@ -1012,6 +1012,7 @@
         <option value="WA">Washington</option>
         <option value="NY">New York</option>
       </select>
+      <button type="button" class="print-action-btn" data-print-steps-select="statePickLicensure" aria-label="Print a checklist of the steps for the chosen state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:11px;height:11px;"><path d="M6 9V3h12v6"/><rect x="4" y="9" width="16" height="8" rx="1.5"/><path d="M6 14h12v7H6z"/></svg> Print checklist</button>
       <span class="soft">What holds in every state comes first. Choose a state for its exams, fees, hours, and renewal rules. More states coming soon.</span>
       <span class="scope-line"><span class="region-badge us">National</span> cards apply everywhere in the US; a card with a state badge applies in that state only.</span>
     </div>
@@ -3651,7 +3652,7 @@ No more than 10 hours of supervision count in any single 30-day period, so you c
       var stepsBtn = ev.target.closest('[data-print-steps]');
       if(stepsBtn){ printStepChecklist(stepsBtn.getAttribute("data-print-steps")); return; }
       var stepsSelBtn = ev.target.closest('[data-print-steps-select]');
-      if(stepsSelBtn){ var sel = document.getElementById(stepsSelBtn.getAttribute("data-print-steps-select")); if(sel) printStepChecklist(sel.value); return; }
+      if(stepsSelBtn){ var sel = document.getElementById(stepsSelBtn.getAttribute("data-print-steps-select")); if(sel){ if(!sel.value){ sel.focus(); return; } printStepChecklist(sel.value); } return; }
       var printSheetBtn = ev.target.closest('[data-print-sheet]');
       if(printSheetBtn){
         var sheetEl = printSheetBtn.closest(".print-sheet");
