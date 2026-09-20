@@ -204,6 +204,11 @@
   .steps-handout .step-field{ color:var(--ink-soft); }
   .steps-handout .step-link a{ color:var(--ink); }
   .steps-handout .step-date{ margin-top:6px; color:var(--ink-soft); font-size:0.8rem; }
+  .hours-log .log-head p{ font-size:0.86rem; margin:0 0 8px; white-space:pre-wrap; }
+  .hours-log .log-table{ width:100%; border-collapse:collapse; margin:10px 0 12px; font-size:0.8rem; }
+  .hours-log .log-table th, .hours-log .log-table td{ border:1px solid var(--ink); padding:0; height:0.32in; vertical-align:bottom; }
+  .hours-log .log-table th{ font-weight:600; font-size:0.72rem; line-height:1.2; padding:4px 6px; text-align:left; vertical-align:middle; background:var(--paper-raised); }
+  .hours-log .log-table td:first-child{ width:1.1in; }
 
   .print-sheet{background:var(--paper-raised); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:24px 22px; display:flex; flex-direction:column; gap:14px; margin-bottom:20px;}
   .print-sheet-head{display:flex; align-items:flex-start; justify-content:space-between; gap:14px;}
@@ -1410,6 +1415,7 @@ No more than 10 hours of supervision count in any single 30-day period, so you c
         <option value="WA">Washington</option>
         <option value="NY">New York</option>
       </select>
+      <button type="button" class="print-action-btn" data-print-hours-log="statePickSupervision" aria-label="Print a supervised hours log for the chosen state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:11px;height:11px;"><path d="M6 9V3h12v6"/><rect x="4" y="9" width="16" height="8" rx="1.5"/><path d="M6 14h12v7H6z"/></svg> Print hours log</button>
       <span class="soft">What holds in every state comes first. Choose a state for its exams, fees, hours, and renewal rules. More states coming soon.</span>
       <span class="scope-line"><span class="region-badge us">National</span> cards apply everywhere in the US; a card with a state badge applies in that state only.</span>
     </div>
@@ -1936,6 +1942,23 @@ No more than 10 hours of supervision count in any single 30-day period, so you c
         </div>
       </div>
       <p class="soft" style="margin:0;">Prints the list for one state: the national steps and the state's own, each with a checkbox, the cost where there is one, and the official link to click when you get there. More states coming soon.</p>
+    </div>
+    <div class="print-sheet" data-pcat="Licensure">
+      <div class="print-sheet-head">
+        <div><h3>Supervised Hours Log</h3><p class="soft">A weekly log of client contact hours and supervision, with a line for the supervisor's initials. Keep it alongside whatever your supervisor keeps; when a supervisor moves on or a form goes missing, this is the record you still have.</p></div>
+        <div class="print-sheet-actions">
+          <label class="soft" for="hoursLogState" style="margin-right:6px;">State</label>
+          <select id="hoursLogState" aria-label="State for the hours log" style="font-family:inherit; font-size:0.8rem; color:var(--ink); background:var(--paper); border:1px solid var(--line); border-radius:8px; padding:5px 8px;">
+            <option value="TX">Texas</option>
+            <option value="CA">California</option>
+            <option value="FL">Florida</option>
+            <option value="WA">Washington</option>
+            <option value="NY">New York</option>
+          </select>
+          <button type="button" class="print-action-btn" data-print-hours-log="hoursLogState" aria-label="Print the supervised hours log"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:11px;height:11px;"><path d="M6 9V3h12v6"/><rect x="4" y="9" width="16" height="8" rx="1.5"/><path d="M6 14h12v7H6z"/></svg> Print</button>
+        </div>
+      </div>
+      <p class="soft" style="margin:0;">One page holds 20 weeks. The header carries your state's totals and pace rule so the numbers you are working toward sit on the page with the numbers you have.</p>
     </div>
     <div class="print-sheet" data-pcat="Emotions">
       <div class="print-sheet-head">
@@ -2678,7 +2701,29 @@ No more than 10 hours of supervision count in any single 30-day period, so you c
     {"id":"g40","term":"Clearinghouse","def":"The intermediary that takes claims from practice software, checks them for errors, and routes them to each payer in the payer's required format. Some software includes one; others, like Jane, integrate with an outside clearinghouse you set up separately."},
     {"id":"g41","term":"NPI (National Provider Identifier)","def":"The free ten-digit federal identifier issued through NPPES. Type 1 identifies an individual clinician; Type 2 identifies an organization such as a PLLC. Both are needed to bill under a practice entity."},
     {"id":"g42","term":"In-network vs. out-of-network","def":"In-network means the clinician has a contract with the payer, accepts its negotiated rate, and bills it directly. Out-of-network means no contract; the client pays the clinician and may seek partial reimbursement using a superbill, depending on their plan."},
-    {"id":"g43","term":"PLLC","def":"Professional Limited Liability Company. The Texas entity type for services that require a license to render, including clinical social work. Only licensed professionals may own or manage one; social workers, counselors, MFTs, and psychologists may co-own a single PLLC."}
+    {"id":"g43","term":"PLLC","def":"Professional Limited Liability Company. The Texas entity type for services that require a license to render, including clinical social work. Only licensed professionals may own or manage one; social workers, counselors, MFTs, and psychologists may co-own a single PLLC."},
+    {"id":"g44","term":"ASWB (Association of Social Work Boards)","def":"The association of state and provincial regulatory boards that writes and administers the Social Work Licensing Exams (Bachelors, Masters, Advanced Generalist, Clinical) and runs the ACE continuing education approval program. It does not license anyone; your state board does."},
+    {"id":"g45","term":"ACE (Approved Continuing Education)","def":"ASWB's program for approving continuing education providers. Many boards accept hours from an ACE provider; some, like Florida and New York, run their own provider approvals as well. Check your state's rule before counting the hours."},
+    {"id":"g46","term":"Authorization to Test (ATT)","def":"The notice ASWB sends once your state board has approved you to sit for the exam. You need the ATT number to schedule at a Pearson test center and to buy the ASWB Online Practice Test."},
+    {"id":"g47","term":"Blueprint (exam)","def":"The content outline the Social Work Licensing Exams are built from, published in the ASWB Examination Guidebook. The current exams follow the 2026 blueprint: 122 questions, three content areas, four hours."},
+    {"id":"g48","term":"Jurisprudence exam","def":"A state's own exam on its licensing law and rules, separate from the ASWB exam. Texas requires one before licensure; California's Law and Ethics Examination is its equivalent. Not every state has one."},
+    {"id":"g49","term":"Associate (pre-licensure registration)","def":"The registration or license that lets a graduate practice under supervision while accruing hours toward full licensure. The name changes at the state line: California's ASW, Washington's social worker associates, Florida's registered intern, New York's limited permit."},
+    {"id":"g50","term":"Limited permit","def":"New York's one-year, non-renewable permit to practice under supervision in a specific setting after every licensure requirement except the exam has been met."},
+    {"id":"g51","term":"Registered intern","def":"Florida's title for a post-master's clinician accruing supervised experience toward the LCSW; registration must exist before the first supervised hour counts."},
+    {"id":"g52","term":"LCSW-R","def":"New York's psychotherapy privilege, a notation added to an LCSW license after three further years and 2,400 client contact hours of supervised psychotherapy. Insurers use it to decide reimbursement; the practice authority is the same as any LCSW."},
+    {"id":"g53","term":"Qualified supervisor","def":"The person state rules allow to supervise hours toward licensure. The requirements are state-specific: years licensed, supervisor training, sometimes a separate supervisor status or declaration. Supervision from a licensed clinician who does not meet them can produce hours the board will not accept."},
+    {"id":"g54","term":"Supervision plan","def":"A written agreement, on the board's form where one exists, that names the supervisor, the setting, the goals, and the method of supervision before hours begin. Texas requires it before any hour counts; New York calls its version the Plan for Supervised Experience (Form 6)."},
+    {"id":"g55","term":"Client contact hours","def":"Time spent providing services directly to clients, as opposed to documentation, meetings, or training. Most states set their experience requirement in client contact hours and define what counts; check the definition before assuming a task qualifies."},
+    {"id":"g56","term":"Social Work Licensure Compact","def":"An agreement among member states to issue a multistate license that lets a social worker practice in every member state. Thirty-two states have enacted it as of September 2026 and it has activated, but multistate licenses are not yet being issued."},
+    {"id":"g57","term":"Continuing education (CE)","def":"Hours of approved training a licensee must complete each renewal period. Boards count clock hours; \"CEU\" is used loosely for the same thing, though formally one CEU is ten contact hours. What counts is set by each board: approved providers, required topics, caps on self-study."},
+    {"id":"g58","term":"PSLF (Public Service Loan Forgiveness)","def":"The federal program that forgives the remaining balance on Direct Loans after 120 qualifying monthly payments made while working full-time for a government employer or a 501(c)(3) nonprofit. A large share of social work jobs qualify; the employer's status, not the job title, decides."},
+    {"id":"g59","term":"W-2 vs. 1099","def":"Employee versus independent contractor. The distinction shifts taxes, malpractice coverage, and supervision costs, and it can decide whether hours count: California will not credit experience gained as an independent contractor."},
+    {"id":"g60","term":"Productivity","def":"An employer's target for billable or direct-service hours per week, often expressed as a percentage of paid time. Ask for the number and whether documentation time is counted inside it; it predicts burnout better than the job title."},
+    {"id":"g61","term":"Duty to warn / duty to protect","def":"The obligation, where state law creates it, to take steps to protect an identifiable person a client has threatened. The trigger and the required action differ by state, and some states have no statute at all; the details are in Crisis & Safety."},
+    {"id":"g62","term":"Emergency detention (involuntary hold)","def":"A short involuntary hold for psychiatric evaluation when someone is a danger to self or others. Every state has its own statute, criteria, and name: the 5150 in California, the Baker Act in Florida, the designated crisis responder in Washington, section 9.39 in New York."},
+    {"id":"g63","term":"DCR (Designated Crisis Responder)","def":"In Washington, the county-designated professional who investigates and decides whether to detain someone under the Involuntary Treatment Act. Clinicians do not detain; they call the DCR."},
+    {"id":"g64","term":"Licensing board","def":"The state body that issues, renews, and disciplines social work licenses. Texas: the Texas State Board of Social Worker Examiners under the Behavioral Health Executive Council (BHEC). California: the Board of Behavioral Sciences (BBS). Florida: the Board of Clinical Social Work, Marriage and Family Therapy and Mental Health Counseling. Washington: the Department of Health. New York: the State Education Department's Office of the Professions."},
+    {"id":"g65","term":"Field practicum","def":"The supervised field placement inside a social work degree. Its hours are a degree requirement checked at licensure, not licensure hours; supervised experience toward a clinical license begins after the degree."}
   ]
 }
 </script>
@@ -3302,8 +3347,15 @@ No more than 10 hours of supervision count in any single 30-day period, so you c
     });
     document.querySelectorAll("[data-state-select]").forEach(function(sel){ sel.value = code; });
     var stepsSel = document.getElementById("stepsPrintState"); if(stepsSel && code) stepsSel.value = code;
+    var logSel = document.getElementById("hoursLogState"); if(logSel && code) logSel.value = code;
     document.querySelectorAll("[data-state-empty]").forEach(function(n){ n.hidden = !!code; });
     try{ if(code) localStorage.setItem("gwState", code); else localStorage.removeItem("gwState"); }catch(e){}
+    // Keep the address shareable: a link that carries ?state=TX opens on Texas for whoever receives it.
+    try{
+      var url = new URL(location.href);
+      if(code) url.searchParams.set("state", code); else url.searchParams.delete("state");
+      history.replaceState(history.state, "", url.pathname + (url.search || "") + url.hash);
+    }catch(e){}
     // The search skips blocks that are not showing, so re-run it for the one that now is.
     var input = document.getElementById("filterInput");
     if(input) input.dispatchEvent(new Event("input"));
@@ -3315,6 +3367,8 @@ No more than 10 hours of supervision count in any single 30-day period, so you c
     });
     var saved = "";
     try{ saved = localStorage.getItem("gwState") || ""; }catch(e){}
+    // A state in the address wins over the remembered one, so shared links land where intended.
+    try{ var fromUrl = (new URLSearchParams(location.search).get("state") || "").toUpperCase(); if(STATES[fromUrl]) saved = fromUrl; }catch(e){}
     applyState(saved);
   }
 
@@ -3566,6 +3620,37 @@ No more than 10 hours of supervision count in any single 30-day period, so you c
   }
 
 
+
+  // The per-state header on the hours log. Each line restates what the state's own
+  // Supervision block says, so the two can never disagree.
+  var HOURS_LOG_NOTES = {
+    TX: "Texas: 3,000 hours of supervised experience over at least 24 months, with at least 100 hours of supervision, under a signed supervision plan. Your supervisor must keep a log of every meeting; keep this one too.",
+    CA: "California: 3,000 hours over at least 104 weeks, within six years of applying; no more than 40 hours in any seven days; at least 1,700 hours under an LCSW; 52 of the 104 weeks must include individual or triadic supervision. Keep the W-2 for every year claimed.",
+    FL: "Florida: two years and at least 100 weeks of supervision, at least 100 supervision hours, at least 1,500 hours of face-to-face psychotherapy, and at least one hour of supervision every two weeks.",
+    WA: "Washington: 3,000 hours for either license, with at least one hour of supervision for every 80 hours of practice; the client contact, supervision, and one-to-one minimums differ between the LASW and LICSW.",
+    NY: "New York: at least 36 months, at least 2,000 client contact hours, and at least 100 hours of individual or group clinical supervision, within a continuous period of not more than six years, as an LMSW or limited permit holder in an acceptable setting."
+  };
+  function printHoursLog(code){
+    var names = { TX:"Texas", CA:"California", FL:"Florida", WA:"Washington", NY:"New York" };
+    if(!names[code]) return;
+    var rows = "";
+    for(var i = 0; i < 20; i++){
+      rows += "<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>";
+    }
+    var html = '<div class="handout hours-log"><h2>Supervised hours log: ' + esc(names[code]) + '</h2>' +
+      '<p class="handout-sub">' + esc(HOURS_LOG_NOTES[code]) + '</p>' +
+      '<div class="log-head">' +
+        '<p>Name ______________________________  License or registration no. ______________</p>' +
+        '<p>Setting ____________________________  Supervisor ____________________________</p>' +
+        '<p>Supervisor license no. ______________  Period from ____________ to ____________</p>' +
+      '</div>' +
+      '<table class="log-table"><thead><tr>' +
+        '<th>Week of</th><th>Client contact hrs</th><th>Other clinical hrs</th><th>Supervision: individual</th><th>Supervision: group</th><th>Running total</th><th>Supervisor initials</th>' +
+      '</tr></thead><tbody>' + rows + '</tbody>' +
+      '<tfoot><tr><th>Page total</th><td></td><td></td><td></td><td></td><td></td><td></td></tr></tfoot></table>' +
+      '<p class="handout-foot">Count only what your state defines as client contact; write documentation, meetings, and training in the second column so nothing is lost if the definition changes. Printed from Groundwork, groundedelephant.com.</p></div>';
+    launchPrint(html, "print-fullpage");
+  }
   // Builds a tick-box checklist from a state's licensure step cards, in the order they
   // appear on screen, so the printout always matches what the section says.
   function printStepChecklist(code){
@@ -3651,6 +3736,8 @@ No more than 10 hours of supervision count in any single 30-day period, so you c
       }
       var stepsBtn = ev.target.closest('[data-print-steps]');
       if(stepsBtn){ printStepChecklist(stepsBtn.getAttribute("data-print-steps")); return; }
+      var hoursBtn = ev.target.closest('[data-print-hours-log]');
+      if(hoursBtn){ var hsel = document.getElementById(hoursBtn.getAttribute("data-print-hours-log")); if(hsel){ if(!hsel.value){ hsel.focus(); return; } printHoursLog(hsel.value); } return; }
       var stepsSelBtn = ev.target.closest('[data-print-steps-select]');
       if(stepsSelBtn){ var sel = document.getElementById(stepsSelBtn.getAttribute("data-print-steps-select")); if(sel){ if(!sel.value){ sel.focus(); return; } printStepChecklist(sel.value); } return; }
       var printSheetBtn = ev.target.closest('[data-print-sheet]');
