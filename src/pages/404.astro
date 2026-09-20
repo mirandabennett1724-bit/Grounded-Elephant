@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Page not found" description="That page is not here.">
+  <section class="lost">
+    <p class="kicker">404</p>
+    <h1>That page is not here.</h1>
+    <p class="lede">The link may be old, or the address may have a typo. Everything on this site lives in two places.</p>
+    <p class="row">
+      <a class="btn" href="/">Groundwork</a>
+      <a class="btn btn-quiet" href="/about/">About</a>
+    </p>
+    <p class="soft">If a link from somewhere else brought you here, tell me and I will fix it: <a href="mailto:groundedelephant@gmail.com?subject=Groundwork%20broken%20link">groundedelephant@gmail.com</a></p>
+  </section>
+</Base>
+
+<style>
+  .kicker{font-size:0.72rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--wine); margin:0 0 8px;}
+  .lost{max-width:60ch; padding-block:24px;}
+  .lost h1{font-family:var(--font-display); font-size:clamp(1.9rem,4vw,2.6rem); line-height:1.15; margin:0 0 12px;}
+  .lede{font-size:1.1rem; color:var(--ink-soft); margin:0 0 18px;}
+  .row{display:flex; gap:10px; flex-wrap:wrap; margin:0 0 18px;}
+  .btn{display:inline-block; padding:10px 16px; border-radius:999px; background:var(--pine); color:var(--on-accent); text-decoration:none; font-weight:600;}
+  .btn-quiet{background:var(--paper-raised); color:var(--ink); border:1px solid var(--line);}
+  .soft{color:var(--ink-soft); font-size:0.92rem;}
+</style>
